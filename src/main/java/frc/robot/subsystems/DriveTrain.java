@@ -43,6 +43,8 @@ public class DriveTrain extends SubsystemBase {
    */
   public DriveTrain() {
     super();
+    m_leftMotor.setInverted(true);
+    m_rightMotor.setInverted(true);
 
     // Encoders may measure differently in the real world and in
     // simulation. In this example the robot moves 0.042 barleycorns

@@ -27,6 +27,7 @@ import frc.robot.commands.SetWristSetpoint;
 import frc.robot.commands.TankDrive;
 import frc.robot.subsystems.Claw;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.USBCamera;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Wrist;
 
@@ -39,6 +40,7 @@ import frc.robot.subsystems.Wrist;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DriveTrain m_drivetrain = new DriveTrain();
+  private final USBCamera m_camera = new USBCamera();
   //private final Elevator m_elevator = new Elevator();
   //private final Wrist m_wrist = new Wrist();
   //private final Claw m_claw = new Claw();
@@ -74,6 +76,8 @@ public class RobotContainer {
 
     // Show what command your subsystem is running on the SmartDashboard
     SmartDashboard.putData(m_drivetrain);
+    SmartDashboard.putData(m_camera);
+
     //SmartDashboard.putData(m_elevator);
     //SmartDashboard.putData(m_wrist);
     //SmartDashboard.putData(m_claw);

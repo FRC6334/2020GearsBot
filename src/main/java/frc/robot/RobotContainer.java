@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.TankDrive;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.USBCamera;
+import frc.robot.subsystems.LimeLightVision;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -25,6 +26,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DriveTrain m_drivetrain = new DriveTrain();
   private final USBCamera m_camera = new USBCamera();
+  private final LimeLightVision m_limelight = new LimeLightVision();
 
   private final Joystick left_joystick = new Joystick(0);
   private final Joystick right_joystick = new Joystick(1);

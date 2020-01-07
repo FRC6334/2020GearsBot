@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import frc.robot.RobotMap;
 
 import frc.robot.Robot;
 
@@ -26,9 +27,9 @@ public class DriveTrain extends SubsystemBase {
    * These include four drive motors, a left and right encoder and a gyro.
    */
   private final SpeedController m_leftMotor =
-      new SpeedControllerGroup(new CANSparkMax(3, MotorType.kBrushless), new CANSparkMax(4, MotorType.kBrushless));
+      new SpeedControllerGroup(new CANSparkMax(RobotMap.leftFrontMotor, MotorType.kBrushless), new CANSparkMax(RobotMap.leftBackMotor, MotorType.kBrushless));
   private final SpeedController m_rightMotor =
-      new SpeedControllerGroup(new CANSparkMax(1, MotorType.kBrushless), new CANSparkMax(2, MotorType.kBrushless));
+      new SpeedControllerGroup(new CANSparkMax(RobotMap.rightFrontMotor, MotorType.kBrushless), new CANSparkMax(RobotMap.rightBackMotor, MotorType.kBrushless));
 
   private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotor, m_rightMotor);
 

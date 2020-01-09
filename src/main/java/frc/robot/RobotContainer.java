@@ -9,12 +9,14 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.ArcadeDrive;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.USBCamera;
 import frc.robot.subsystems.LimeLightVision;
+import frc.robot.commands.LimeLightCommands;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -56,6 +58,8 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     // Create some buttons
+    final JoystickButton m_button = new JoystickButton(m_joystick0, 2);
+    m_button.whenPressed(new LimeLightCommands(m_limelight));
   }
 
 

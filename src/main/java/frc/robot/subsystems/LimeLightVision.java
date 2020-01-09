@@ -21,7 +21,6 @@ public class LimeLightVision extends SubsystemBase {
    */
   public LimeLightVision() {
     nTable = NetworkTableInstance.getDefault().getTable("limelight");
-    this.outputLimeLightValues();
   }
 
   public void outputLimeLightValues() {

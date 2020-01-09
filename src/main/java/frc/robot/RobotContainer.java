@@ -27,8 +27,12 @@ public class RobotContainer {
   private final DriveTrain m_drivetrain = new DriveTrain();
   private final USBCamera m_camera = new USBCamera();
   private final LimeLightVision m_limelight = new LimeLightVision();
+<<<<<<< HEAD
   
   private final Joystick left_joystick = new Joystick(0);
+=======
+  private final Joystick left_joystick = new Joystick(0); 
+>>>>>>> f5df7bfb1b766381c452fd6dc144730be4cf7ac3
   private final Joystick right_joystick = new Joystick(1);
   
   /**

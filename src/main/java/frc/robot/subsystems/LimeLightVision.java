@@ -21,12 +21,16 @@ public class LimeLightVision extends SubsystemBase {
    */
   public LimeLightVision() {
     nTable = NetworkTableInstance.getDefault().getTable("limelight");
-    tx = nTable.getEntry("tx");
-    ty = nTable.getEntry("ty");
-    ta = nTable.getEntry("ta");
-    tv = nTable.getEntry("tv");
-    ts = nTable.getEntry("ts");
-    System.out.println(">>>>>>>>>>>>>>tx="+tx.getDouble(-999)+", ty="+ty.getDouble(-999)+",ta="+ta.getDouble(-999)+",tv="+tv.getDouble(-999)+",ts="+ts.getDouble(-999));
+    this.outputLimeLightValues();
+  }
+
+  public void outputLimeLightValues() {
+      tx = nTable.getEntry("tx");
+      ty = nTable.getEntry("ty");
+      ta = nTable.getEntry("ta");
+      tv = nTable.getEntry("tv");
+      ts = nTable.getEntry("ts");
+      System.out.println(">>>>>>>>>>>>>>tx="+tx.getDouble(-999)+", ty="+ty.getDouble(-999)+",ta="+ta.getDouble(-999)+",tv="+tv.getDouble(-999)+",ts="+ts.getDouble(-999));
   }
 
   @Override

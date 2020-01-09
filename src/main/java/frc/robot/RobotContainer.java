@@ -28,7 +28,6 @@ public class RobotContainer {
   private final USBCamera m_camera = new USBCamera();
   private final LimeLightVision m_limelight = new LimeLightVision();
   private final Joystick m_joystick0 = new Joystick(0);
-  //private final Joystick right_joystick = new Joystick(1);
   
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.

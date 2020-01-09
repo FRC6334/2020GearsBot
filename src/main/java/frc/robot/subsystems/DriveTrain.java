@@ -74,8 +74,8 @@ public class DriveTrain extends SubsystemBase {
    * Arcade style driving for the DriveTrain.
    *
    */
-  public void drive(double x, double y) {
-    m_drive.arcadeDrive(x*RobotMap.driveTrainPower, y*RobotMap.driveTrainPower);
+  public void drive(double y, double x) {
+    m_drive.arcadeDrive((y*RobotMap.driveTrainPower*-1), (x*RobotMap.driveTrainPower));
   }
 
 

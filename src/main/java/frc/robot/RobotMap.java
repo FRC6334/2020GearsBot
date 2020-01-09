@@ -23,4 +23,7 @@ public class RobotMap {
     //0.5 = half power
     //1 = full power
     public static final double driveTrainPower = 0.5;
+
+    //Default LimeLight Value
+    public static final double defaultLimeLight = -999;
 }

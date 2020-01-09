@@ -9,29 +9,40 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.LimeLightVision;
+import frc.robot.subsystems.DriveTrain;
 
-public class LimeLightCommands extends CommandBase {
+public class DriveToTarget extends CommandBase {
   LimeLightVision lime_light;
+  DriveTrain drive_train;
   boolean m_finished;
-
+  
   /**
-   * Creates a new LimeLightCommands.
+   * Creates a new DriveToTarget.
    */
-  public LimeLightCommands(LimeLightVision m_lime) {
-    // Use addRequirements() here to declare subsystem dependencies.
+  public DriveToTarget(LimeLightVision m_lime, DriveTrain m_drive) {
+    // Use addRequirements() here to declare subsystem dependencies    
     lime_light = m_lime;
+    drive_train = m_drive;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_finished = false;
+    m_finished = false;    
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    lime_light.outputLimeLightValues();
+    double target = lime_light.getTA();
+
+    while (target < 23) {
+      drive_train.drive(-1, 0);
+      target = lime_light.getTA();
+      System.out.println(">>TA="+target);
+    }
+    drive_train.drive(0, 0);
+
     m_finished = true;
   }
 

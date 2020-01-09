@@ -16,7 +16,8 @@ import frc.robot.commands.ArcadeDrive;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.USBCamera;
 import frc.robot.subsystems.LimeLightVision;
-import frc.robot.commands.LimeLightCommands;
+import frc.robot.commands.GetLimeLightValues;
+import frc.robot.commands.DriveToTarget;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -58,8 +59,11 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     // Create some buttons
-    final JoystickButton m_button = new JoystickButton(m_joystick0, 2);
-    m_button.whenPressed(new LimeLightCommands(m_limelight));
+    final JoystickButton m_button2 = new JoystickButton(m_joystick0, 2);
+    m_button2.whenPressed(new GetLimeLightValues(m_limelight));
+
+    final JoystickButton m_button3 = new JoystickButton(m_joystick0, 3);
+    m_button3.whenPressed(new DriveToTarget(m_limelight, m_drivetrain));
   }
 
 

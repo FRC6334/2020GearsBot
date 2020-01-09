@@ -31,8 +31,8 @@ public class DriveTrain extends SubsystemBase {
 
   private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotor, m_rightMotor);
 
-  private final Encoder m_leftEncoder = new Encoder(1, 2);
-  private final Encoder m_rightEncoder = new Encoder(3, 4);
+  private final Encoder m_leftEncoder = new Encoder(RobotMap.leftFrontMotor, RobotMap.leftBackMotor);
+  private final Encoder m_rightEncoder = new Encoder(RobotMap.rightFrontMotor, RobotMap.rightBackMotor);
 
   /**
    * Create a new drive train subsystem.
@@ -71,13 +71,11 @@ public class DriveTrain extends SubsystemBase {
   }
 
   /**
-   * Tank style driving for the DriveTrain.
+   * Arcade style driving for the DriveTrain.
    *
-   * @param left  Speed in range [-1,1]
-   * @param right Speed in range [-1,1]
    */
-  public void drive(double left, double right) {
-    m_drive.tankDrive(left, right);
+  public void drive(double x, double y) {
+    m_drive.arcadeDrive(x*RobotMap.driveTrainPower, y*RobotMap.driveTrainPower);
   }
 
 

@@ -7,8 +7,6 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.AnalogGyro;
-import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
@@ -35,16 +33,12 @@ public class DriveTrain extends SubsystemBase {
 
   private final Encoder m_leftEncoder = new Encoder(1, 2);
   private final Encoder m_rightEncoder = new Encoder(3, 4);
-  private final AnalogInput m_rangefinder = new AnalogInput(6);
-  private final AnalogGyro m_gyro = new AnalogGyro(1);
 
   /**
    * Create a new drive train subsystem.
    */
   public DriveTrain() {
     super();
-    m_leftMotor.setInverted(true);
-    m_rightMotor.setInverted(true);
 
     // Encoders may measure differently in the real world and in
     // simulation. In this example the robot moves 0.042 barleycorns
@@ -64,8 +58,6 @@ public class DriveTrain extends SubsystemBase {
     addChild("Drive", m_drive);
     addChild("Left Encoder", m_leftEncoder);
     addChild("Right Encoder", m_rightEncoder);
-    addChild("Rangefinder", m_rangefinder);
-    addChild("Gyro", m_gyro);
   }
 
   /**
@@ -76,7 +68,6 @@ public class DriveTrain extends SubsystemBase {
     SmartDashboard.putNumber("Right Distance", m_rightEncoder.getDistance());
     SmartDashboard.putNumber("Left Speed", m_leftEncoder.getRate());
     SmartDashboard.putNumber("Right Speed", m_rightEncoder.getRate());
-    SmartDashboard.putNumber("Gyro", m_gyro.getAngle());
   }
 
   /**
@@ -89,20 +80,11 @@ public class DriveTrain extends SubsystemBase {
     m_drive.tankDrive(left, right);
   }
 
-  /**
-   * Get the robot's heading.
-   *
-   * @return The robots heading in degrees.
-   */
-  public double getHeading() {
-    return m_gyro.getAngle();
-  }
 
   /**
    * Reset the robots sensors to the zero states.
    */
   public void reset() {
-    m_gyro.reset();
     m_leftEncoder.reset();
     m_rightEncoder.reset();
   }
@@ -114,15 +96,5 @@ public class DriveTrain extends SubsystemBase {
    */
   public double getDistance() {
     return (m_leftEncoder.getDistance() + m_rightEncoder.getDistance()) / 2;
-  }
-
-  /**
-   * Get the distance to the obstacle.
-   *
-   * @return The distance to the obstacle detected by the rangefinder.
-   */
-  public double getDistanceToObstacle() {
-    // Really meters in simulation since it's a rangefinder...
-    return m_rangefinder.getAverageVoltage();
   }
 }

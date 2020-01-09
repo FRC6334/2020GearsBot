@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.TankDrive;
+import frc.robot.commands.ArcadeDrive;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.USBCamera;
 import frc.robot.subsystems.LimeLightVision;
@@ -27,9 +27,8 @@ public class RobotContainer {
   private final DriveTrain m_drivetrain = new DriveTrain();
   private final USBCamera m_camera = new USBCamera();
   private final LimeLightVision m_limelight = new LimeLightVision();
-  
-  private final Joystick left_joystick = new Joystick(0);
-  private final Joystick right_joystick = new Joystick(1);
+  private final Joystick m_joystick0 = new Joystick(0);
+  //private final Joystick right_joystick = new Joystick(1);
   
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -37,8 +36,7 @@ public class RobotContainer {
   public RobotContainer() {
     // Put Some buttons on the SmartDashboard
     // Assign default commands
-    m_drivetrain.setDefaultCommand(new TankDrive(() -> left_joystick.getY(),
-        () -> right_joystick.getY(), m_drivetrain));
+    m_drivetrain.setDefaultCommand(new ArcadeDrive(m_joystick0, m_drivetrain));
 
     // Show what command your subsystem is running on the SmartDashboard
     SmartDashboard.putData(m_drivetrain);

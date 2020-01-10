@@ -35,12 +35,43 @@ public class LimeLightVision extends SubsystemBase {
         ",ta="+ta.getDouble(RobotMap.defaultLimeLight)+
         ",tv="+tv.getDouble(RobotMap.defaultLimeLight)+
         ",ts="+ts.getDouble(RobotMap.defaultLimeLight));
+
+
+      //Calculate distance
+      System.out.println("Distance to Target: "+this.getDistanceToTarget());
   }
 
+  //not working
+  public double getDistanceToTarget() {
+    if (this.getTV() != 1.0) return RobotMap.defaultLimeLight;
+    
+    //d = (h2-h1) / tan(a1+a2)
+    double heightOfTarget = RobotMap.heightOfTarget; //h2 
+    double heightOfLimeLight = RobotMap.heightOfLimeLight; // h1
+    double a2 = this.getTY(); // The limelight (or your vision system) can tell you the y angle to the target (a2).
+    double a1 = RobotMap.angleOfLimeLight;   //lime light mounting angle is known (a1).
+
+    System.out.println("a1="+a1+",a2="+a2);
+
+    double hdiff =  heightOfTarget - heightOfLimeLight;
+    double adiff =  Math.tan(a1+a2);
+
+    return hdiff / adiff;
+  }
+
+  //X offset to center of target
   public double getTX() { return nTable.getEntry("tx").getDouble(RobotMap.defaultLimeLight); }
+
+  //The limelight (or your vision system) can tell you the y angle to the target (a2).
   public double getTY() { return nTable.getEntry("ty").getDouble(RobotMap.defaultLimeLight); }
+
+  //target area
   public double getTA() { return nTable.getEntry("ta").getDouble(RobotMap.defaultLimeLight); }
+
+  //is a valid target - 1.0 means valid target
   public double getTV() { return nTable.getEntry("tv").getDouble(RobotMap.defaultLimeLight); }
+
+  //target scew
   public double getTS() { return nTable.getEntry("ts").getDouble(RobotMap.defaultLimeLight); }
 
   @Override

@@ -37,7 +37,7 @@ public class DriveToTarget extends CommandBase {
     double target = lime_light.getTA();
 
     while (target < 23) {
-      drive_train.drive(-1, 0);
+      drive_train.drive(-0.75, 0);
       target = lime_light.getTA();
       System.out.println(">>TA="+target);
     }

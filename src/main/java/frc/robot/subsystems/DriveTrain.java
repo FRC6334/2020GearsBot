@@ -78,6 +78,9 @@ public class DriveTrain extends SubsystemBase {
     m_drive.arcadeDrive((y*RobotMap.driveTrainPower*-1), (x*RobotMap.driveTrainPower));
   }
 
+  public void TankDrive(double left, double right) {
+    m_drive.tankDrive(left, right);
+  }
 
   /**
    * Reset the robots sensors to the zero states.

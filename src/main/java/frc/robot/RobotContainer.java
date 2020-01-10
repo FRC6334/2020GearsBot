@@ -63,7 +63,7 @@ public class RobotContainer {
     m_button2.whenPressed(new GetLimeLightValues(m_limelight));
 
     final JoystickButton m_button3 = new JoystickButton(m_joystick0, 3);
-    m_button3.whenPressed(new DriveToTarget(m_limelight, m_drivetrain));
+    m_button3.whileHeld(new DriveToTarget(m_limelight, m_drivetrain));
   }
 
 

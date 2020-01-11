@@ -35,10 +35,6 @@ public class LimeLightVision extends SubsystemBase {
         ",ta="+ta.getDouble(RobotMap.defaultLimeLight)+
         ",tv="+tv.getDouble(RobotMap.defaultLimeLight)+
         ",ts="+ts.getDouble(RobotMap.defaultLimeLight));
-
-
-      //Calculate distance
-      System.out.println("Distance to Target: "+this.getDistanceToTarget());
   }
 
   //not working

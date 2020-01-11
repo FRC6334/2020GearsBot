@@ -14,8 +14,9 @@ import frc.robot.subsystems.DriveTrain;
 public class DriveToTarget extends CommandBase {
   LimeLightVision lime_light;
   DriveTrain drive_train;
-  private double x_speed = 0.8;
+  private double x_speed = 1;
   private double y_speed = 0.5;
+  private double x_flex = 4;
 
   /**
    * Creates a new DriveToTarget.
@@ -37,25 +38,47 @@ public class DriveToTarget extends CommandBase {
   public void execute() {
       double ta = lime_light.getTA();
       double tx = lime_light.getTX();
+      double tv = lime_light.getTV();
+      double ts = lime_light.getTS();
+
+      //spin around and look for a target
+      while (tv == 0) {
+        drive_train.drive(0, 1.2);
+        tv = lime_light.getTV();
+      }
       
+      if (tx <= -x_flex) {
+        drive_train.drive(0, -y_speed);
+        alignReport(7, ta, tx, ts);
+      }
+      else if (tx >= x_flex) {
+        drive_train.drive(0, y_speed);
+        alignReport(8, ta, tx, ts);
+      }
       //move up to target and correct X by moving robot to left
-      if (ta < 11 && tx < 1) {
+      else if (ta < 11 && tx < x_flex && tv==1) {
         drive_train.drive(-x_speed, -y_speed);
+        alignReport(1, ta, tx, ts);
       } 
       //move up to target and correct X by moving robot to right
-      else if (ta < 11 && tx > 1) {
+      else if (ta < 11 && tx > x_flex && tv==1) {
         drive_train.drive(-x_speed, y_speed);
+        alignReport(2, ta, tx, ts);
       } 
       //move up to target and stay on course with X axis
-      else if (ta < 11 && tx == 0) {
+      else if (ta < 11 && tx == 0 && tv==1) {
         drive_train.drive(-x_speed, 0);
+        alignReport(3, ta, tx,ts );
       } 
       //too close to target move back
-      else if (ta > 13) {
+      else if (ta > 13 && tv==1) {
         drive_train.drive(x_speed, 0);
+        alignReport(4, ta, tx, ts);
       } 
+  }
 
-      System.out.println("TA="+ta);
+  private void alignReport(int id, double ta, double tx, double ts) {
+    System.out.println(id+": TA="+ta+", TX="+tx+","+ts);
   }
 
   // Called once the command ends or is interrupted.

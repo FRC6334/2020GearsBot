@@ -40,16 +40,21 @@ public class DriveToTarget extends CommandBase {
       
       //spin around and look for a target
       while (tv == 0) {
-        drive_train.drive(0, 0.7);
+        drive_train.drive(0, 0.4);
         tv = lime_light.getTV();
       }
       
+      //calculate speed as a function of distance to shooting distance
       double speed_adj = -Math.exp(-((dist-RobotMap.shoot_distance)-46)/10)+100;
       speed_adj *= RobotMap.y_speed / 100;
       if (speed_adj < 0.5) speed_adj = 0.5;
 
+      double center_adj = Math.pow(tx/5, 2);
+      center_adj *= RobotMap.x_speed / 100;
+      if (center_adj < 0.5) center_adj = 0.5;
+
       //too far right of target, just spin left
-      if (tx <= -RobotMap.x_flex) {
+      /*if (tx <= -RobotMap.x_flex) {
         drive_train.drive(0, -RobotMap.x_speed);
         alignReport(7, tv, tx, dist);
       }
@@ -72,16 +77,20 @@ public class DriveToTarget extends CommandBase {
       else if (dist > RobotMap.shoot_distance+2 && tx == 0 && tv==1) {
         drive_train.drive(-speed_adj, 0);
         alignReport(3, tv, tx, dist);
-      } 
+      } */
+      if (dist > RobotMap.shoot_distance+2 && tv==1) {
+        drive_train.drive(-speed_adj, center_adj);
+        alignReport(10, tv, speed_adj, center_adj, dist);
+      }
       //too close to target move back
       else if (dist < RobotMap.shoot_distance-2 && tv==1) {
         drive_train.drive(RobotMap.y_speed, 0);
-        alignReport(4, tv, tx, dist);
+        alignReport(10, tv, speed_adj, center_adj, dist);
       } 
   }
 
-  private void alignReport(int id, double tv, double tx, double dist) {
-    System.out.println(id+": TV="+tv+", TX="+tx+", Dist="+dist);
+  private void alignReport(int id, double tv, double speed, double turn, double dist) {
+    System.out.println(id+": TV="+tv+", speed="+speed+", turn ="+turn+", Dist="+dist);
   }
 
   // Called once the command ends or is interrupted.

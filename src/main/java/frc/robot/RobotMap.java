@@ -28,7 +28,7 @@ public class RobotMap {
     public static final double defaultLimeLight = -999;
 
     //target height calculaitons
-    public static final double heightOfTarget = 75.5;   //(h2) The height of the target 
-    public static final double heightOfLimeLight = 36.25;   //(h1) The height of your camera above the floor
-    public static final double angleOfLimeLight = 50; // in degrees
+    public static final double heightOfTarget = 115.625;   //(h2) The height of the target 
+    public static final double heightOfLimeLight = 36.125;   //(h1) The height of your camera above the floor
+    public static final double angleOfLimeLight = 45; // in degrees
 }

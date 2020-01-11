@@ -55,7 +55,7 @@ public class LimeLightVision extends SubsystemBase {
       System.out.println("distance to target (inches): "+this.getDistanceToTarget());
   }
 
-  //not working
+  //working within 1-2", a wider angle makes it less accurate
   public double getDistanceToTarget() {
     if (this.getTV() != 1.0) return RobotMap.defaultLimeLight;
     

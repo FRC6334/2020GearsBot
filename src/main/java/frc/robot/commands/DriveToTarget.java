@@ -17,6 +17,7 @@ public class DriveToTarget extends CommandBase {
   private double x_speed = 1;
   private double y_speed = 0.5;
   private double x_flex = 4;
+  private double shoot_distance = 36; // in inches
 
   /**
    * Creates a new DriveToTarget.
@@ -36,49 +37,50 @@ public class DriveToTarget extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-      double ta = lime_light.getTA();
+      double tv = lime_light.getTV();  
+      double dist = lime_light.getDistanceToTarget();
       double tx = lime_light.getTX();
-      double tv = lime_light.getTV();
-      double ts = lime_light.getTS();
-
+      
       //spin around and look for a target
       while (tv == 0) {
-        drive_train.drive(0, 1.2);
+        drive_train.drive(0, 1.0);
         tv = lime_light.getTV();
       }
       
+      //too far right of target, just spin left
       if (tx <= -x_flex) {
         drive_train.drive(0, -y_speed);
-        alignReport(7, ta, tx, ts);
+        alignReport(7, tv, tx, dist);
       }
+      //too far left of target, just spin right
       else if (tx >= x_flex) {
         drive_train.drive(0, y_speed);
-        alignReport(8, ta, tx, ts);
+        alignReport(8, tv, tx, dist);
       }
       //move up to target and correct X by moving robot to left
-      else if (ta < 11 && tx < x_flex && tv==1) {
+      else if (dist > shoot_distance+2 && tx < x_flex && tv==1) {
         drive_train.drive(-x_speed, -y_speed);
-        alignReport(1, ta, tx, ts);
+        alignReport(1, tv, tx, dist);
       } 
       //move up to target and correct X by moving robot to right
-      else if (ta < 11 && tx > x_flex && tv==1) {
+      else if (dist > shoot_distance+2 && tx > x_flex && tv==1) {
         drive_train.drive(-x_speed, y_speed);
-        alignReport(2, ta, tx, ts);
+        alignReport(2, tv, tx, dist);
       } 
       //move up to target and stay on course with X axis
-      else if (ta < 11 && tx == 0 && tv==1) {
+      else if (dist > shoot_distance+2 && tx == 0 && tv==1) {
         drive_train.drive(-x_speed, 0);
-        alignReport(3, ta, tx,ts );
+        alignReport(3, tv, tx, dist);
       } 
       //too close to target move back
-      else if (ta > 13 && tv==1) {
+      else if (dist < shoot_distance-2 && tv==1) {
         drive_train.drive(x_speed, 0);
-        alignReport(4, ta, tx, ts);
+        alignReport(4, tv, tx, dist);
       } 
   }
 
-  private void alignReport(int id, double ta, double tx, double ts) {
-    System.out.println(id+": TA="+ta+", TX="+tx+","+ts);
+  private void alignReport(int id, double tv, double tx, double dist) {
+    System.out.println(id+": TV="+tv+", TX="+tx+", Dist="+dist);
   }
 
   // Called once the command ends or is interrupted.

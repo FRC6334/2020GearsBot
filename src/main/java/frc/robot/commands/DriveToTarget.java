@@ -49,6 +49,8 @@ public class DriveToTarget extends CommandBase {
       speed_adj *= RobotMap.y_speed / 100;
       if (speed_adj < 0.5) speed_adj = 0.5;
 
+      //calculate center adjustment as a function of motor power to X offset
+      //the larger the X offset the more motor power to turn and get back to x = 0
       double center_adj = Math.pow(tx/5, 2);
       center_adj *= RobotMap.x_speed / 100;
       if (center_adj < 0.5) center_adj = 0.5;
@@ -78,6 +80,8 @@ public class DriveToTarget extends CommandBase {
         drive_train.drive(-speed_adj, 0);
         alignReport(3, tv, tx, dist);
       } */
+
+      //move to the target at the proper forward speed and X center adjustment speed
       if (dist > RobotMap.shoot_distance+2 && tv==1) {
         drive_train.drive(-speed_adj, center_adj);
         alignReport(10, tv, speed_adj, center_adj, dist);

@@ -40,13 +40,13 @@ public class DriveToTarget extends CommandBase {
       
       //spin around and look for a target
       while (tv == 0) {
-        drive_train.drive(0, 1.0);
+        drive_train.drive(0, 0.7);
         tv = lime_light.getTV();
       }
       
-     // if (dist > RobotMap.shoot_distance+2) {
-       //  double xadj = RobotMap.x_speed;
-      //}
+      double speed_adj = -Math.exp(-((dist-RobotMap.shoot_distance)-46)/10)+100;
+      speed_adj *= RobotMap.y_speed / 100;
+      if (speed_adj < 0.5) speed_adj = 0.5;
 
       //too far right of target, just spin left
       if (tx <= -RobotMap.x_flex) {
@@ -60,17 +60,17 @@ public class DriveToTarget extends CommandBase {
       }
       //move up to target and correct X by moving robot to left
       else if (dist > RobotMap.shoot_distance+2 && tx<0 && tv==1) {
-        drive_train.drive(-RobotMap.y_speed, -RobotMap.x_speed);
+        drive_train.drive(-speed_adj, -RobotMap.x_speed);
         alignReport(1, tv, tx, dist);
       } 
       //move up to target and correct X by moving robot to right
       else if (dist > RobotMap.shoot_distance+2 && tx>0 && tv==1) {
-        drive_train.drive(-RobotMap.y_speed, RobotMap.x_speed);
+        drive_train.drive(-speed_adj, RobotMap.x_speed);
         alignReport(2, tv, tx, dist);
       } 
       //move up to target and stay on course with X axis
       else if (dist > RobotMap.shoot_distance+2 && tx == 0 && tv==1) {
-        drive_train.drive(-RobotMap.y_speed, 0);
+        drive_train.drive(-speed_adj, 0);
         alignReport(3, tv, tx, dist);
       } 
       //too close to target move back

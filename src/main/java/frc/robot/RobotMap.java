@@ -22,7 +22,7 @@ public class RobotMap {
     //0 = no power
     //0.5 = half power
     //1 = full power
-    public static final double driveTrainPower = 0.5;
+    public static final double driveTrainPower = 0.8;
 
     //Default LimeLight Value
     public static final double defaultLimeLight = -999;
@@ -32,7 +32,7 @@ public class RobotMap {
     public static final double heightOfLimeLight = 36.125;   //(h1) The height of your camera above the floor
     public static final double angleOfLimeLight = 45; // in degrees
     public static final double shoot_distance = 42; //how far to shoot from
-    public static final double x_speed = 0.5; //drive to target right/left speed
+    public static final double x_speed = 0.25; //drive to target right/left speed
     public static final double y_speed = 0.8; //drive to trget forward/back up speed
     public static final double x_flex = 2; //amount of acceptable error in degrees when lining up on the X axis
 }

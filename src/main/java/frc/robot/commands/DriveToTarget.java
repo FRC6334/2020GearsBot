@@ -10,14 +10,11 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.LimeLightVision;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.RobotMap;
 
 public class DriveToTarget extends CommandBase {
   LimeLightVision lime_light;
   DriveTrain drive_train;
-  private double x_speed = 1;
-  private double y_speed = 0.5;
-  private double x_flex = 4;
-  private double shoot_distance = 36; // in inches
 
   /**
    * Creates a new DriveToTarget.
@@ -48,33 +45,33 @@ public class DriveToTarget extends CommandBase {
       }
       
       //too far right of target, just spin left
-      if (tx <= -x_flex) {
-        drive_train.drive(0, -y_speed);
+      if (tx <= -RobotMap.x_flex) {
+        drive_train.drive(0, -RobotMap.x_speed);
         alignReport(7, tv, tx, dist);
       }
       //too far left of target, just spin right
-      else if (tx >= x_flex) {
-        drive_train.drive(0, y_speed);
+      else if (tx >= RobotMap.x_flex) {
+        drive_train.drive(0, RobotMap.x_speed);
         alignReport(8, tv, tx, dist);
       }
       //move up to target and correct X by moving robot to left
-      else if (dist > shoot_distance+2 && tx < x_flex && tv==1) {
-        drive_train.drive(-x_speed, -y_speed);
+      else if (dist > RobotMap.shoot_distance+2 && tv==1) {
+        drive_train.drive(-RobotMap.y_speed, -RobotMap.x_speed);
         alignReport(1, tv, tx, dist);
       } 
       //move up to target and correct X by moving robot to right
-      else if (dist > shoot_distance+2 && tx > x_flex && tv==1) {
-        drive_train.drive(-x_speed, y_speed);
+      else if (dist > RobotMap.shoot_distance+2 && tv==1) {
+        drive_train.drive(-RobotMap.y_speed, RobotMap.x_speed);
         alignReport(2, tv, tx, dist);
       } 
       //move up to target and stay on course with X axis
-      else if (dist > shoot_distance+2 && tx == 0 && tv==1) {
-        drive_train.drive(-x_speed, 0);
+      else if (dist > RobotMap.shoot_distance+2 && tx == 0 && tv==1) {
+        drive_train.drive(-RobotMap.y_speed, 0);
         alignReport(3, tv, tx, dist);
       } 
       //too close to target move back
-      else if (dist < shoot_distance-2 && tv==1) {
-        drive_train.drive(x_speed, 0);
+      else if (dist < RobotMap.shoot_distance-2 && tv==1) {
+        drive_train.drive(RobotMap.y_speed, 0);
         alignReport(4, tv, tx, dist);
       } 
   }

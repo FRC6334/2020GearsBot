@@ -44,6 +44,10 @@ public class DriveToTarget extends CommandBase {
         tv = lime_light.getTV();
       }
       
+     // if (dist > RobotMap.shoot_distance+2) {
+       //  double xadj = RobotMap.x_speed;
+      //}
+
       //too far right of target, just spin left
       if (tx <= -RobotMap.x_flex) {
         drive_train.drive(0, -RobotMap.x_speed);
@@ -55,12 +59,12 @@ public class DriveToTarget extends CommandBase {
         alignReport(8, tv, tx, dist);
       }
       //move up to target and correct X by moving robot to left
-      else if (dist > RobotMap.shoot_distance+2 && tv==1) {
+      else if (dist > RobotMap.shoot_distance+2 && tx<0 && tv==1) {
         drive_train.drive(-RobotMap.y_speed, -RobotMap.x_speed);
         alignReport(1, tv, tx, dist);
       } 
       //move up to target and correct X by moving robot to right
-      else if (dist > RobotMap.shoot_distance+2 && tv==1) {
+      else if (dist > RobotMap.shoot_distance+2 && tx>0 && tv==1) {
         drive_train.drive(-RobotMap.y_speed, RobotMap.x_speed);
         alignReport(2, tv, tx, dist);
       } 

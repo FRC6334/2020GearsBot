@@ -51,6 +51,8 @@ public class LimeLightVision extends SubsystemBase {
         ",ta="+ta.getDouble(RobotMap.defaultLimeLight)+
         ",tv="+tv.getDouble(RobotMap.defaultLimeLight)+
         ",ts="+ts.getDouble(RobotMap.defaultLimeLight));
+
+      System.out.println("distance to target (inches): "+this.getDistanceToTarget());
   }
 
   //not working
@@ -64,7 +66,7 @@ public class LimeLightVision extends SubsystemBase {
     double a1 = RobotMap.angleOfLimeLight;   //lime light mounting angle is known (a1)
 
     double hdiff =  heightOfTarget - heightOfLimeLight;
-    double adiff =  Math.tan(a1+a2);
+    double adiff =  Math.tan(Math.toRadians(a1+a2));
 
     return hdiff / adiff;
   }

@@ -13,11 +13,13 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.ArcadeDrive;
+import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.USBCamera;
 import frc.robot.subsystems.LimeLightVision;
 import frc.robot.commands.GetLimeLightValues;
 import frc.robot.commands.DriveToTarget;
+import frc.robot.commands.GetColor;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -30,6 +32,7 @@ public class RobotContainer {
   private final DriveTrain m_drivetrain = new DriveTrain();
   private final USBCamera m_camera = new USBCamera();
   private final LimeLightVision m_limelight = new LimeLightVision();
+  private final ColorSensor m_color_sensor = new ColorSensor();
   private final Joystick m_joystick0 = new Joystick(0);
   
   /**
@@ -64,6 +67,9 @@ public class RobotContainer {
 
     final JoystickButton m_button3 = new JoystickButton(m_joystick0, 3);
     m_button3.whileHeld(new DriveToTarget(m_limelight, m_drivetrain));
+
+    final JoystickButton m_button11 = new JoystickButton(m_joystick0, 11);
+    m_button11.whenPressed(new GetColor(m_color_sensor));
   }
 
 

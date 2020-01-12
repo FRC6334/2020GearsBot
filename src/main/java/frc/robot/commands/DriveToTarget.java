@@ -50,30 +50,37 @@ public class DriveToTarget extends CommandBase {
       //calculate speed as a function of distance to shooting distance
       double speed_adj = -Math.exp(-((dist-RobotMap.shoot_distance)-46)/10)+100;
       speed_adj *= RobotMap.y_speed / 100;
-      if (speed_adj < 0.5) speed_adj = 0.5;
-      if (speed_adj > 1.0) speed_adj = 1.0;
+      //if (speed_adj < 0.5) speed_adj = 0.3;
+      //if (speed_adj > 1.0) speed_adj = 1.0;
 
       //calculate center adjustment as a function of motor power to X offset
       //the larger the X offset the more motor power to turn and get back to x = 0
       double center_adj = Math.pow(tx/5, 2);
-      center_adj *= RobotMap.x_speed / 100;
-      if (center_adj < 0.5) center_adj = 0.5;
-      if (center_adj > 1.0) center_adj = 1.0;
+      center_adj *= RobotMap.x_speed / 10;
+      //if (center_adj < 0.5) center_adj = 0.3;
+      //if (center_adj > 1.0) center_adj = 1.0;
 
       //move to the target at the proper forward speed and X center adjustment speed
-      if (dist > RobotMap.shoot_distance+2 && tv==1) {
-        drive_train.drive(-speed_adj, center_adj);
-        alignReport(10, tv, -speed_adj, center_adj, dist);
+      if (dist > RobotMap.shoot_distance && tv==1) {
+        if (tx < 0) {
+           drive_train.drive(-speed_adj, -center_adj);
+           alignReport(10, tv, tx, -speed_adj, -center_adj, dist);
+
+        }
+        else {
+           drive_train.drive(-speed_adj, center_adj);
+           alignReport(10, tv, tx, -speed_adj, center_adj, dist);
+        }
       }
       //too close to target move back
-      else if (tv==1 && (dist <= RobotMap.shoot_distance-2.5 || Math.abs(tx) > RobotMap.x_flex+2)) {
+     /* else if (tv==1 && (dist <= RobotMap.shoot_distance-2.5 || Math.abs(tx) > RobotMap.x_flex+2)) {
         drive_train.drive(RobotMap.y_speed, 0);
         alignReport(20, tv, RobotMap.y_speed, 0, dist);
-      } 
+      } */
   }
 
-  private void alignReport(int id, double tv, double speed, double turn, double dist) {
-    System.out.println(id+": TV="+tv+", Yspeed="+speed+", Xspeed="+turn+", Dist="+dist);
+  private void alignReport(int id, double tv, double tx, double speed, double turn, double dist) {
+    System.out.println(id+": TV="+tv+", TX="+tx+", Yspeed="+speed+", Xspeed="+turn+", Dist="+dist);
   }
 
   // Called once the command ends or is interrupted.

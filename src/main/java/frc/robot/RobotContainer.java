@@ -64,6 +64,9 @@ public class RobotContainer {
 
     final JoystickButton m_button3 = new JoystickButton(m_joystick0, 3);
     m_button3.whileHeld(new DriveToTarget(m_limelight, m_drivetrain));
+  
+    final JoystickButton m_button11 = new JoystickButton(m_joystick0, 11);
+    m_button11.whenPressed(new DriveToTarget(m_limelight, m_drivetrain));
   }
 
 

@@ -55,7 +55,7 @@ public class LimeLightVision extends SubsystemBase {
       System.out.println("distance to target (inches): "+this.getDistanceToTarget());
   }
 
-  //working within 1-2", a wider angle makes it less accurate
+  //working within 1-2" of actual distance, a wider angle makes it less accurate
   public double getDistanceToTarget() {
     if (this.getTV() != 1.0) return RobotMap.defaultLimeLight;
     
@@ -65,10 +65,8 @@ public class LimeLightVision extends SubsystemBase {
     double a2 = this.getTY(); // The limelight (or your vision system) can tell you the y angle to the target (a2).
     double a1 = RobotMap.angleOfLimeLight;   //lime light mounting angle is known (a1)
 
-    double hdiff =  heightOfTarget - heightOfLimeLight;
-    double adiff =  Math.tan(Math.toRadians(a1+a2));
-
-    return hdiff / adiff;
+    //calculate distance
+    return (heightOfTarget - heightOfLimeLight) / Math.tan(Math.toRadians(a1+a2));
   }
 
   //X offset to center of target

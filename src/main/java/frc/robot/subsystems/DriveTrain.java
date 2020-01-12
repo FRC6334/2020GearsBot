@@ -78,6 +78,7 @@ public class DriveTrain extends SubsystemBase {
     m_drive.arcadeDrive((y*RobotMap.driveTrainPower*-1), (x*RobotMap.driveTrainPower));
   }
 
+  /* not used but example of calling tank drive */
   public void TankDrive(double left, double right) {
     m_drive.tankDrive(left, right);
   }

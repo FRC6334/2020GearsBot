@@ -39,7 +39,7 @@ public class DriveToTarget extends CommandBase {
 
       //spin around and look for a target
       while (tv == 0) {
-        drive_train.drive(0, 0.4);
+        drive_train.drive(0, 0.35);
         tv = lime_light.getTV();
       }
 
@@ -58,7 +58,7 @@ public class DriveToTarget extends CommandBase {
       double center_adj = Math.pow(tx/5, 2);
       center_adj *= RobotMap.x_speed / 10;
       //if (center_adj < 0.5) center_adj = 0.3;
-      //if (center_adj > 1.0) center_adj = 1.0;
+      if (center_adj > 0.7) center_adj = 0.7;
 
       //move to the target at the proper forward speed and X center adjustment speed
       if (dist > RobotMap.shoot_distance && tv==1) {
@@ -69,14 +69,14 @@ public class DriveToTarget extends CommandBase {
         }
         else {
            drive_train.drive(-speed_adj, center_adj);
-           alignReport(10, tv, tx, -speed_adj, center_adj, dist);
+           alignReport(11, tv, tx, -speed_adj, center_adj, dist);
         }
       }
       //too close to target move back
-     /* else if (tv==1 && (dist <= RobotMap.shoot_distance-2.5 || Math.abs(tx) > RobotMap.x_flex+2)) {
+      else if (tv==1 && (dist <= RobotMap.shoot_distance-2.5 || Math.abs(tx) > RobotMap.x_flex+1)) {
         drive_train.drive(RobotMap.y_speed, 0);
-        alignReport(20, tv, RobotMap.y_speed, 0, dist);
-      } */
+        alignReport(20, tv, tx, RobotMap.y_speed*0.5, 0, dist);
+      } 
   }
 
   private void alignReport(int id, double tv, double tx, double speed, double turn, double dist) {

@@ -8,7 +8,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
+import frc.robot.RobotMap;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.util.Color;
 import com.revrobotics.ColorSensorV3;
@@ -24,11 +24,26 @@ public class ColorSensor extends SubsystemBase {
     
   }
 
-  public void getColor() {
+  public int getColor() {
     Color detectedColor = m_colorSensor.getColor();
-    double IR = m_colorSensor.getIR();
+    
+    if(detectedColor.red > 0.3 && detectedColor.red < detectedColor.green && detectedColor.blue < 0.3)
+      return RobotMap.yellow;
+    else if (detectedColor.red > detectedColor.blue && detectedColor.red > detectedColor.green) 
+      return RobotMap.red;
+    else if(detectedColor.green > detectedColor.red && detectedColor.green > detectedColor.blue) 
+      return RobotMap.green;
+    else if(detectedColor.blue > detectedColor.red && detectedColor.blue > detectedColor.green) 
+      return RobotMap.blue;
+    else 
+      return RobotMap.unknown; 
+  }
 
-
+  public void printColorInformation() {
+    Color detectedColor = m_colorSensor.getColor();
+  
+    System.out.println("IR:" + m_colorSensor.getIR());
+    System.out.println("Proximity:" + m_colorSensor.getProximity()); 
     System.out.println("RED:" + detectedColor.red);
     System.out.println("Green:" + detectedColor.green);
     System.out.println("Blue:" + detectedColor.blue);
@@ -36,7 +51,6 @@ public class ColorSensor extends SubsystemBase {
     if(detectedColor.red > 0.3 && detectedColor.red < detectedColor.green && detectedColor.blue < 0.3) {
       System.out.println("The color is YELLOW");
     }
-    
     else if (detectedColor.red > detectedColor.blue && detectedColor.red > detectedColor.green) {
       System.out.println("The color is RED");
     } else if(detectedColor.green > detectedColor.red && detectedColor.green > detectedColor.blue) {
@@ -45,11 +59,7 @@ public class ColorSensor extends SubsystemBase {
       System.out.println("The color is BLUE");
     }  else {
       System.out.println("Color unknown...");
-    }
-
-
-    System.out.println("IR:" + m_colorSensor.getIR());
-    System.out.println("Proximity:" + m_colorSensor.getProximity());    
+    }   
   }
 
   @Override

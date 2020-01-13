@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.ArcadeDrive;
-import frc.robot.commands.GetColor;
+import frc.robot.commands.GetColorInformation;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.USBCamera;
 import frc.robot.subsystems.LimeLightVision;
@@ -69,16 +69,6 @@ public class RobotContainer {
     m_button3.whileHeld(new DriveToTarget(m_limelight, m_drivetrain));
   
     final JoystickButton m_button11 = new JoystickButton(m_joystick0, 11);
-    m_button11.whenPressed(new GetColor(m_color_sensor));
+    m_button11.whenPressed(new GetColorInformation(m_color_sensor));
   }
-
-
-  /**
-   * Use this to pass the autonomous command to the main {@link Robot} class.
-   *
-   * @return the command to run in autonomous
-   */
-  //public Command getAutonomousCommand() {
-  //  return m_autonomousCommand;
-  //}
 }

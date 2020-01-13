@@ -35,4 +35,11 @@ public class RobotMap {
     public static final double x_speed = 0.8; //drive to target right/left speed
     public static final double y_speed = 0.8; //drive to trget forward/back up speed
     public static final double x_flex = 2; //amount of acceptable error in degrees when lining up on the X axis
+
+    //color wheel colors
+    public static final int red = 0;
+    public static final int green = 1;
+    public static final int blue = 2;
+    public static final int yellow = 3;
+    public static final int unknown = -1;
 }

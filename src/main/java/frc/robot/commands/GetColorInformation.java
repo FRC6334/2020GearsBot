@@ -13,10 +13,10 @@ import frc.robot.subsystems.ColorSensor;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class GetColor extends InstantCommand {
+public class GetColorInformation extends InstantCommand {
   private ColorSensor m_color_sensor;
   
-  public GetColor(ColorSensor cs) {
+  public GetColorInformation(ColorSensor cs) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_color_sensor = cs;
   }
@@ -24,6 +24,6 @@ public class GetColor extends InstantCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_color_sensor.getColor();
+    m_color_sensor.printColorInformation();
   }
 }

@@ -19,6 +19,8 @@ import frc.robot.subsystems.USBCamera;
 import frc.robot.subsystems.LimeLightVision;
 import frc.robot.subsystems.ColorSensor;
 import frc.robot.commands.GetLimeLightValues;
+import frc.robot.commands.ToggleLimeLightLED;
+import frc.robot.commands.ToggleLimeLightVision;
 import frc.robot.commands.DriveToTarget;
 
 /**
@@ -61,14 +63,24 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    // Create some buttons
-    final JoystickButton m_button2 = new JoystickButton(m_joystick0, 2);
-    m_button2.whenPressed(new GetLimeLightValues(m_limelight));
 
-    final JoystickButton m_button3 = new JoystickButton(m_joystick0, 3);
-    m_button3.whileHeld(new DriveToTarget(m_limelight, m_drivetrain));
-  
+    final JoystickButton m_button03 = new JoystickButton(m_joystick0, 3);
+    m_button03.whileHeld(new DriveToTarget(m_limelight, m_drivetrain));
+
+    final JoystickButton m_button06 = new JoystickButton(m_joystick0, 6);
+    m_button06.whenPressed(new ToggleLimeLightVision(m_limelight));
+
+    final JoystickButton m_button07 = new JoystickButton(m_joystick0, 7);
+    m_button07.whenPressed(new ToggleLimeLightLED(m_limelight));
+
+    final JoystickButton m_button10 = new JoystickButton(m_joystick0, 10);
+    m_button10.whenPressed(new GetColorInformation(m_color_sensor));
+
     final JoystickButton m_button11 = new JoystickButton(m_joystick0, 11);
-    m_button11.whenPressed(new GetColorInformation(m_color_sensor));
+    m_button11.whenPressed(new GetLimeLightValues(m_limelight));
+
+
+
+    
   }
 }

@@ -42,4 +42,15 @@ public class RobotMap {
     public static final int blue = 2;
     public static final int yellow = 3;
     public static final int unknown = -1;
+
+    //limelight ledmode
+    public static final int ll_current = 0;
+    public static final int ll_off = 1;
+    public static final int ll_blink = 2;
+    public static final int ll_on = 3;
+
+      //limelight cam mode
+      public static final int ll_vision = 0;
+      public static final int ll_driver = 1;
 }
+

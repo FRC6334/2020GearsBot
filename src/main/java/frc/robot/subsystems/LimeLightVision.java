@@ -30,27 +30,21 @@ camtran	Results of a 3D position solution, 6 numbers: Translation (x,y,y) Rotati
 */
 
 public class LimeLightVision extends SubsystemBase {
-  NetworkTable nTable;
-  NetworkTableEntry tx, ty, ta, tv, ts;
+  private static NetworkTableInstance nTable = null;
 
   /**
    * Creates a new LimeLightVision.
    */
   public LimeLightVision() {
-    nTable = NetworkTableInstance.getDefault().getTable("limelight");
+    
   }
 
   public void outputLimeLightValues() {
-      tx = nTable.getEntry("tx");
-      ty = nTable.getEntry("ty");
-      ta = nTable.getEntry("ta");
-      tv = nTable.getEntry("tv");
-      ts = nTable.getEntry("ts");
-      System.out.println(">>>>>>>>>>>>>>tx="+tx.getDouble(RobotMap.defaultLimeLight)+
-        ", ty="+ty.getDouble(RobotMap.defaultLimeLight)+
-        ",ta="+ta.getDouble(RobotMap.defaultLimeLight)+
-        ",tv="+tv.getDouble(RobotMap.defaultLimeLight)+
-        ",ts="+ts.getDouble(RobotMap.defaultLimeLight));
+      System.out.println(">>>>>>>>>>>>>>tx="+getValue("tx").getDouble(RobotMap.defaultLimeLight)+
+        ", ty="+getValue("ty").getDouble(RobotMap.defaultLimeLight)+
+        ",ta="+getValue("ta").getDouble(RobotMap.defaultLimeLight)+
+        ",tv="+getValue("tv").getDouble(RobotMap.defaultLimeLight)+
+        ",ts="+getValue("ts").getDouble(RobotMap.defaultLimeLight));
 
       System.out.println("distance to target (inches): "+this.getDistanceToTarget());
   }
@@ -70,22 +64,87 @@ public class LimeLightVision extends SubsystemBase {
   }
 
   //X offset to center of target
-  public double getTX() { return nTable.getEntry("tx").getDouble(RobotMap.defaultLimeLight); }
+  public double getTX() { return getValue("tx").getDouble(RobotMap.defaultLimeLight); }
 
   //The limelight (or your vision system) can tell you the y angle to the target (a2).
-  public double getTY() { return nTable.getEntry("ty").getDouble(RobotMap.defaultLimeLight); }
+  public double getTY() { return getValue("ty").getDouble(RobotMap.defaultLimeLight); }
 
   //target area
-  public double getTA() { return nTable.getEntry("ta").getDouble(RobotMap.defaultLimeLight); }
+  public double getTA() { return getValue("ta").getDouble(RobotMap.defaultLimeLight); }
 
   //is a valid target - 1.0 means valid target
-  public double getTV() { return nTable.getEntry("tv").getDouble(RobotMap.defaultLimeLight); }
+  public double getTV() { return getValue("tv").getDouble(RobotMap.defaultLimeLight); }
 
   //target scew
-  public double getTS() { return nTable.getEntry("ts").getDouble(RobotMap.defaultLimeLight); }
+  public double getTS() { return getValue("ts").getDouble(RobotMap.defaultLimeLight); }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
   }
+
+  /**
+	 * Helper method to get an entry from the Limelight NetworkTable.
+	 * 
+	 * @param key
+	 *            Key for entry.
+	 * @return NetworkTableEntry of given entry.
+	 */
+	private static NetworkTableEntry getValue(String key) {
+		if (nTable == null) {
+			nTable = NetworkTableInstance.getDefault();
+		}
+
+		return nTable.getTable("limelight").getEntry(key);
+  }
+  
+  	/**
+	 * Sets pipeline number (0-9 value).
+	 * 
+	 * @param number
+	 *            Pipeline number (0-9).
+	 */
+	public static void setPipeline(int number) {
+		getValue("pipeline").setNumber(number);
+  }
+
+  /**
+	 * Sets LED mode of Limelight.
+	 * 
+	 * @param mode
+	 *            Light mode for Limelight.
+	 */
+	public static void setLedMode(int ll_ledmode) {
+		getValue("ledMode").setNumber(ll_ledmode);
+	}
+  
+  /**
+	 * Sets camera mode for Limelight.
+	 * 
+	 * @param mode
+	 *            Camera mode for Limelight.
+	 */
+	public static void setCameraMode(int ll_cammode) {
+		getValue("camMode").setNumber(ll_cammode);
+  }
+  
+   /**
+	 * Toggles camera mode for Limelight between driver and vision
+	 */
+	public void toggleCameraMode() {
+    if (getValue("camMode").getDouble(RobotMap.defaultLimeLight) == RobotMap.ll_vision) 
+      setCameraMode(RobotMap.ll_driver);
+    else 
+      setCameraMode(RobotMap.ll_vision);
+  }
+  
+  /**
+	 * Toggles led light mode for Limelight between on / off
+	 */
+	public void toggleLedMode() {
+    if (getValue("camMode").getDouble(RobotMap.defaultLimeLight) == RobotMap.ll_on) 
+      setLedMode(RobotMap.ll_off);
+    else 
+      setLedMode(RobotMap.ll_on);
+	}
 }

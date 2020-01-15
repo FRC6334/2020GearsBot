@@ -7,6 +7,7 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.CAN;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
@@ -24,15 +25,20 @@ public class DriveTrain extends SubsystemBase {
    * The DriveTrain subsystem incorporates the sensors and actuators attached to the robots chassis.
    * These include four drive motors, a left and right encoder and a gyro.
    */
+  private final CANSparkMax leftFrontMotor = new CANSparkMax(RobotMap.leftFrontMotor, MotorType.kBrushless);
+  private final CANSparkMax leftBackMotor = new CANSparkMax(RobotMap.leftBackMotor, MotorType.kBrushless);
+  private final CANSparkMax rightFrontMotor = new CANSparkMax(RobotMap.rightFrontMotor, MotorType.kBrushless);
+  private final CANSparkMax rightBackMotor = new CANSparkMax(RobotMap.rightBackMotor, MotorType.kBrushless);
+
   private final SpeedController m_leftMotor =
-      new SpeedControllerGroup(new CANSparkMax(RobotMap.leftFrontMotor, MotorType.kBrushless), new CANSparkMax(RobotMap.leftBackMotor, MotorType.kBrushless));
+      new SpeedControllerGroup(leftFrontMotor, leftBackMotor);
   private final SpeedController m_rightMotor =
-      new SpeedControllerGroup(new CANSparkMax(RobotMap.rightFrontMotor, MotorType.kBrushless), new CANSparkMax(RobotMap.rightBackMotor, MotorType.kBrushless));
+      new SpeedControllerGroup(rightFrontMotor, rightBackMotor);
 
   private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotor, m_rightMotor);
 
-  private final Encoder m_leftEncoder = new Encoder(RobotMap.leftFrontMotor, RobotMap.leftBackMotor);
-  private final Encoder m_rightEncoder = new Encoder(RobotMap.rightFrontMotor, RobotMap.rightBackMotor);
+  private final Encoder m_leftEncoder = new Encoder(1, 2);
+  private final Encoder m_rightEncoder = new Encoder(3, 4);
 
   /**
    * Create a new drive train subsystem.
@@ -97,6 +103,7 @@ public class DriveTrain extends SubsystemBase {
    * @return The distance driven (average of left and right encoders).
    */
   public double getDistance() {
-    return (m_leftEncoder.getDistance() + m_rightEncoder.getDistance()) / 2;
+    //return (m_leftEncoder.getDistance() + m_rightEncoder.getDistance()) / 2;
+    return 0;
   }
 }

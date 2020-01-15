@@ -132,17 +132,21 @@ public class LimeLightVision extends SubsystemBase {
 	 * Toggles camera mode for Limelight between driver and vision
 	 */
 	public void toggleCameraMode() {
-    if (getValue("camMode").getDouble(RobotMap.defaultLimeLight) == RobotMap.ll_vision) 
+    if (getValue("camMode").getDouble(RobotMap.defaultLimeLight) == RobotMap.ll_vision) {
+      setLedMode(RobotMap.ll_off);
       setCameraMode(RobotMap.ll_driver);
-    else 
+    } else{
+      setLedMode(RobotMap.ll_on);
       setCameraMode(RobotMap.ll_vision);
+    } 
+      
   }
   
   /**
 	 * Toggles led light mode for Limelight between on / off
 	 */
 	public void toggleLedMode() {
-    if (getValue("camMode").getDouble(RobotMap.defaultLimeLight) == RobotMap.ll_on) 
+    if (getValue("ledMode").getDouble(RobotMap.defaultLimeLight) == RobotMap.ll_on)
       setLedMode(RobotMap.ll_off);
     else 
       setLedMode(RobotMap.ll_on);

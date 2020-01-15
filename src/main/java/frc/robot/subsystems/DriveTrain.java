@@ -7,17 +7,15 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import frc.robot.RobotMap;
-
-import frc.robot.Robot;
 
 public class DriveTrain extends SubsystemBase {
   /**
@@ -29,6 +27,9 @@ public class DriveTrain extends SubsystemBase {
   private final CANSparkMax rightFrontMotor = new CANSparkMax(RobotMap.rightFrontMotor, MotorType.kBrushless);
   private final CANSparkMax rightBackMotor = new CANSparkMax(RobotMap.rightBackMotor, MotorType.kBrushless);
 
+  private final CANEncoder right_encoder = rightFrontMotor.getEncoder();
+  private final CANEncoder left_encoder = leftFrontMotor.getEncoder();
+
   private final SpeedController m_leftMotor =
       new SpeedControllerGroup(leftFrontMotor, leftBackMotor);
   private final SpeedController m_rightMotor =
@@ -36,43 +37,24 @@ public class DriveTrain extends SubsystemBase {
 
   private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotor, m_rightMotor);
 
-  private final Encoder m_leftEncoder = new Encoder(1, 2);
-  private final Encoder m_rightEncoder = new Encoder(3, 4);
-
   /**
    * Create a new drive train subsystem.
    */
   public DriveTrain() {
     super();
 
-    // Encoders may measure differently in the real world and in
-    // simulation. In this example the robot moves 0.042 barleycorns
-    // per tick in the real world, but the simulated encoders
-    // simulate 360 tick encoders. This if statement allows for the
-    // real robot to handle this difference in devices.
-    if (Robot.isReal()) {
-      m_leftEncoder.setDistancePerPulse(0.042);
-      m_rightEncoder.setDistancePerPulse(0.042);
-    } else {
-      // Circumference in ft = 4in/12(in/ft)*PI
-      m_leftEncoder.setDistancePerPulse((4.0 / 12.0 * Math.PI) / 360.0);
-      m_rightEncoder.setDistancePerPulse((4.0 / 12.0 * Math.PI) / 360.0);
-    }
-
     // Let's name the sensors on the LiveWindow
     addChild("Drive", m_drive);
-    addChild("Left Encoder", m_leftEncoder);
-    addChild("Right Encoder", m_rightEncoder);
   }
 
   /**
    * The log method puts interesting information to the SmartDashboard.
    */
   public void log() {
-    SmartDashboard.putNumber("Left Distance", m_leftEncoder.getDistance());
-    SmartDashboard.putNumber("Right Distance", m_rightEncoder.getDistance());
-    SmartDashboard.putNumber("Left Speed", m_leftEncoder.getRate());
-    SmartDashboard.putNumber("Right Speed", m_rightEncoder.getRate());
+    SmartDashboard.putNumber("Left Position", left_encoder.getPosition());
+    SmartDashboard.putNumber("Right Distance", right_encoder.getPosition());
+    SmartDashboard.putNumber("Left Speed", left_encoder.getVelocity());
+    SmartDashboard.putNumber("Right Speed", right_encoder.getVelocity());
   }
 
   /**
@@ -92,8 +74,7 @@ public class DriveTrain extends SubsystemBase {
    * Reset the robots sensors to the zero states.
    */
   public void reset() {
-    m_leftEncoder.reset();
-    m_rightEncoder.reset();
+   
   }
 
   /**
@@ -102,7 +83,6 @@ public class DriveTrain extends SubsystemBase {
    * @return The distance driven (average of left and right encoders).
    */
   public double getDistance() {
-    //return (m_leftEncoder.getDistance() + m_rightEncoder.getDistance()) / 2;
-    return 0;
+    return (left_encoder.getPosition()+right_encoder.getPosition())/2;
   }
 }

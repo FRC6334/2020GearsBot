@@ -8,7 +8,6 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import frc.robot.RobotMap;
@@ -114,7 +113,7 @@ public class LimeLightVision extends SubsystemBase {
 	 * @param mode
 	 *            Light mode for Limelight.
 	 */
-	public static void setLedMode(int ll_ledmode) {
+	public void setLedMode(int ll_ledmode) {
 		getValue("ledMode").setNumber(ll_ledmode);
 	}
   
@@ -124,7 +123,7 @@ public class LimeLightVision extends SubsystemBase {
 	 * @param mode
 	 *            Camera mode for Limelight.
 	 */
-	public static void setCameraMode(int ll_cammode) {
+	public void setCameraMode(int ll_cammode) {
 		getValue("camMode").setNumber(ll_cammode);
   }
   

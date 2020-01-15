@@ -28,7 +28,8 @@ public class DriveToTarget extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-
+    lime_light.setCameraMode(RobotMap.ll_vision);
+    lime_light.setLedMode(RobotMap.ll_on);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -80,7 +81,7 @@ public class DriveToTarget extends CommandBase {
   }
 
   private void alignReport(int id, double tv, double tx, double speed, double turn, double dist) {
-    System.out.println(id+": TV="+tv+", TX="+tx+", Yspeed="+speed+", Xspeed="+turn+", Dist="+dist);
+    System.out.println(id+": TV="+tv+", TX="+tx+", Yspeed="+speed+", Xspeed="+turn+", Dist="+dist+", Driven="+drive_train.getDistance());
   }
 
   // Called once the command ends or is interrupted.

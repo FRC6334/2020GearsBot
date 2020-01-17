@@ -13,7 +13,9 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.ArcadeDrive;
+import frc.robot.commands.DriveInInches;
 import frc.robot.commands.GetColorInformation;
+import frc.robot.commands.ResetEncoderDistance;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.USBCamera;
 import frc.robot.subsystems.LimeLightVision;
@@ -63,6 +65,8 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+    final JoystickButton m_button02 = new JoystickButton(m_joystick0, 2);
+    m_button02.whenPressed(new DriveInInches(m_drivetrain, 24, "F"));
 
     final JoystickButton m_button03 = new JoystickButton(m_joystick0, 3);
     m_button03.whileHeld(new DriveToTarget(m_limelight, m_drivetrain));
@@ -73,14 +77,13 @@ public class RobotContainer {
     final JoystickButton m_button07 = new JoystickButton(m_joystick0, 7);
     m_button07.whenPressed(new ToggleLimeLightLED(m_limelight));
 
+    final JoystickButton m_button09 = new JoystickButton(m_joystick0, 9);
+    m_button09.whenPressed(new ResetEncoderDistance(m_drivetrain));
+
     final JoystickButton m_button10 = new JoystickButton(m_joystick0, 10);
     m_button10.whenPressed(new GetColorInformation(m_color_sensor));
 
     final JoystickButton m_button11 = new JoystickButton(m_joystick0, 11);
     m_button11.whenPressed(new GetLimeLightValues(m_limelight));
-
-
-
-    
   }
 }

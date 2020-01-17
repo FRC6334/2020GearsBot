@@ -41,15 +41,13 @@ public class DriveInInches extends InstantCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    this.drive_train.reset();
-    
     //go forward
     if (direction.equals("F")) {
-      driveForward();
+      driveForward(inches);
     }
     //go backwards
     else if (direction.equals("B")){
-      driveBackward();
+      driveBackward(inches);
     }
     //turn right
     else if (direction.equals("R")){
@@ -60,43 +58,52 @@ public class DriveInInches extends InstantCommand {
       turnLeft();
     }
     else if (direction.equals("G")) {
-      inches = 24;
-      driveForward();
+      drive_train.drive(0,0);
+      driveForward(24);
+      drive_train.drive(0,0);
       turnRight();
-      inches = 24;
-      driveForward();
+      drive_train.drive(0,0);
+      driveForward(12);
     }
   }
 
-  private void driveForward() {
-    this.drive_train.reset();
-    double distance =0;
-    double target  = inches*RobotMap.rotations_per_inch;
-    while(distance<=target){
-      drive_train.drive(-0.4, 0);
-      distance = drive_train.getDistance();
+  private void driveForward(double _inches) {
+    System.out.println("begin drive forward, inches="+_inches);
+    drive_train.reset();
+    double travled =0;
+    double target  = _inches*RobotMap.rotations_per_inch;
+    while(travled<=target){
+      drive_train.drive(-RobotMap.din_power, 0);
+      travled = drive_train.getDistance();
     }
+    System.out.println("end drive forward, inches="+_inches);
   }
 
-  private void driveBackward() {
-    this.drive_train.reset();
-    double distance =0;
-    double target  = inches*RobotMap.rotations_per_inch;
-      while(distance<=target){
-        drive_train.drive(0.4, 0);
-        distance = Math.abs(drive_train.getDistance());
-      }
+  private void driveBackward(double _inches) {
+    System.out.println("begin drive backward, inches="+_inches);
+    drive_train.reset();
+    double travled =0;
+    double target  = _inches*RobotMap.rotations_per_inch;
+    while(travled<=target){
+        drive_train.drive(RobotMap.din_power, 0);
+        travled = Math.abs(drive_train.getDistance());
+    }
+    System.out.println("end drive backward, inches="+_inches);
   }
 
   private void turnRight() {
-    this.drive_train.reset();
+    System.out.println("begin turn right");
+    drive_train.reset();
     while(drive_train.getRightEncoderDistance()<10.6104)
-      drive_train.drive(0,0.4);
+      drive_train.drive(0,RobotMap.din_power);
+    System.out.println("end turn right");
   }
 
   private void turnLeft() {
-    this.drive_train.reset();
+    System.out.println("begin turn left");
+    drive_train.reset();
     while(Math.abs(drive_train.getRightEncoderDistance())<10.6104)
-      drive_train.drive(0,-0.4);
+      drive_train.drive(0,-RobotMap.din_power);
+    System.out.println("end turn left");
   }
 }

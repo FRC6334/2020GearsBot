@@ -24,6 +24,9 @@ public class RobotMap {
     //1 = full power
     public static final double driveTrainPower = 0.8;
 
+    //Motor rotations per inch
+    public static final double rotations_per_inch = 0.5629;
+
     //Default LimeLight Value
     public static final double defaultLimeLight = -999;
 

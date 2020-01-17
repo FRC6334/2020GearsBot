@@ -35,6 +35,7 @@ public class ArcadeDrive extends CommandBase {
   @Override
   public void execute() {
     m_drivetrain.drive(m_stick.getY(), m_stick.getX());
+    m_drivetrain.log();
   }
 
   // Make this return true when this Command no longer needs to run execute()

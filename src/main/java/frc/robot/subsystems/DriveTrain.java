@@ -42,6 +42,7 @@ public class DriveTrain extends SubsystemBase {
    */
   public DriveTrain() {
     super();
+    this.reset();
 
     // Let's name the sensors on the LiveWindow
     addChild("Drive", m_drive);
@@ -52,7 +53,7 @@ public class DriveTrain extends SubsystemBase {
    */
   public void log() {
     SmartDashboard.putNumber("Left Position", left_encoder.getPosition());
-    SmartDashboard.putNumber("Right Distance", right_encoder.getPosition());
+    SmartDashboard.putNumber("Right Position", right_encoder.getPosition());
     SmartDashboard.putNumber("Left Speed", left_encoder.getVelocity());
     SmartDashboard.putNumber("Right Speed", right_encoder.getVelocity());
   }
@@ -74,15 +75,21 @@ public class DriveTrain extends SubsystemBase {
    * Reset the robots sensors to the zero states.
    */
   public void reset() {
-   
+    left_encoder.setPosition(0);
+    right_encoder.setPosition(0);
+    this.log();
   }
 
   /**
    * Get the average distance of the encoders since the last reset.
-   *
+   * When the robot drives forward, the right value will be negative and
+   * the left value will be positive.
    * @return The distance driven (average of left and right encoders).
    */
   public double getDistance() {
-    return (left_encoder.getPosition()+right_encoder.getPosition())/2;
+        return (Math.abs(left_encoder.getPosition())+Math.abs(right_encoder.getPosition()))/2;
   }
+
+  public double getLeftEncoderDistance() { return left_encoder.getPosition(); }
+  public double getRightEncoderDistance() { return right_encoder.getPosition(); }
 }

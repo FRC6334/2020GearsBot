@@ -21,6 +21,7 @@ public class DriveInInches extends InstantCommand {
    * B = backwards
    * R = right turn
    * L = left turn
+   * G = group commmand
    */
   public DriveInInches(DriveTrain dt, double _inches, String _direction) {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -41,33 +42,61 @@ public class DriveInInches extends InstantCommand {
   @Override
   public void initialize() {
     this.drive_train.reset();
-    double distance = 0;
     
     //go forward
     if (direction.equals("F")) {
-      double target  = inches*RobotMap.rotations_per_inch;
-      while(distance<=target){
-        drive_train.drive(-0.4, 0);
-        distance = drive_train.getDistance();
-      }
+      driveForward();
     }
     //go backwards
     else if (direction.equals("B")){
-      double target  = inches*RobotMap.rotations_per_inch;
+      driveBackward();
+    }
+    //turn right
+    else if (direction.equals("R")){
+      turnRight();
+    }
+    //turn left
+    else if (direction.equals("L")){
+      turnLeft();
+    }
+    else if (direction.equals("G")) {
+      inches = 24;
+      driveForward();
+      turnRight();
+      inches = 24;
+      driveForward();
+    }
+  }
+
+  private void driveForward() {
+    this.drive_train.reset();
+    double distance =0;
+    double target  = inches*RobotMap.rotations_per_inch;
+    while(distance<=target){
+      drive_train.drive(-0.4, 0);
+      distance = drive_train.getDistance();
+    }
+  }
+
+  private void driveBackward() {
+    this.drive_train.reset();
+    double distance =0;
+    double target  = inches*RobotMap.rotations_per_inch;
       while(distance<=target){
         drive_train.drive(0.4, 0);
         distance = Math.abs(drive_train.getDistance());
       }
-    }
-    //turn right
-    else if (direction.equals("R")){
-      while(drive_train.getRightEncoderDistance()<10.6104)
-        drive_train.drive(0,0.4);
-    }
-    //turn left
-    else if (direction.equals("L")){
-      while(Math.abs(drive_train.getRightEncoderDistance())<10.6104)
-        drive_train.drive(0,-0.4);
-    }
+  }
+
+  private void turnRight() {
+    this.drive_train.reset();
+    while(drive_train.getRightEncoderDistance()<10.6104)
+      drive_train.drive(0,0.4);
+  }
+
+  private void turnLeft() {
+    this.drive_train.reset();
+    while(Math.abs(drive_train.getRightEncoderDistance())<10.6104)
+      drive_train.drive(0,-0.4);
   }
 }

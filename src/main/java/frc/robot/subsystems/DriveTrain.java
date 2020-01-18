@@ -77,7 +77,6 @@ public class DriveTrain extends SubsystemBase {
   public void reset() {
     left_encoder.setPosition(0);
     right_encoder.setPosition(0);
-    this.log();
   }
 
   /**

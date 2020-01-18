@@ -24,6 +24,7 @@ import frc.robot.commands.GetLimeLightValues;
 import frc.robot.commands.ToggleLimeLightLED;
 import frc.robot.commands.ToggleLimeLightVision;
 import frc.robot.commands.DriveToTarget;
+import frc.robot.commands.DriveInInchesGroup;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -33,7 +34,7 @@ import frc.robot.commands.DriveToTarget;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final DriveTrain m_drivetrain = new DriveTrain();
+  private static final DriveTrain m_drivetrain = new DriveTrain();
   private final USBCamera m_camera = new USBCamera();
   private final LimeLightVision m_limelight = new LimeLightVision();
   private final ColorSensor m_color_sensor = new ColorSensor();
@@ -66,7 +67,7 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     final JoystickButton m_button02 = new JoystickButton(m_joystick0, 2);
-    m_button02.whenPressed(new DriveInInches(m_drivetrain, 24, "G"));
+    m_button02.whenPressed(new DriveInInchesGroup(m_drivetrain));
 
     final JoystickButton m_button03 = new JoystickButton(m_joystick0, 3);
     m_button03.whileHeld(new DriveToTarget(m_limelight, m_drivetrain));

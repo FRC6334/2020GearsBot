@@ -12,22 +12,22 @@ import frc.robot.RobotMap;
 import frc.robot.subsystems.DriveTrain;
 
 public class DriveInInches extends InstantCommand {
-  DriveTrain drive_train;
-  double inches = 0;
-  String direction = "F";
+  private DriveTrain drive_train;
+  private double inches = 0;
+  private String direction = "F";
+
   /**
    * Creates a new resetEncoderDistance.
    * F = forward
    * B = backwards
    * R = right turn
    * L = left turn
-   * G = group commmand
    */
   public DriveInInches(DriveTrain dt, double _inches, String _direction) {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.drive_train = dt;
-    this.inches = _inches;
-    this.direction = _direction;
+    drive_train = dt;
+    inches = _inches;
+    direction = _direction;
   }
 
   public DriveInInches(DriveTrain dt, double _inches) {
@@ -38,12 +38,12 @@ public class DriveInInches extends InstantCommand {
     this(dt, 0, _direction);
   }
 
-  // Called when the command is initially scheduled.
+
   @Override
   public void initialize() {
     //go forward
     if (direction.equals("F")) {
-      driveForward(inches);
+      driveForward(inches); 
     }
     //go backwards
     else if (direction.equals("B")){
@@ -57,15 +57,7 @@ public class DriveInInches extends InstantCommand {
     else if (direction.equals("L")){
       turnLeft();
     }
-    else if (direction.equals("G")) {
-      drive_train.drive(0,0);
-      driveForward(24);
-      drive_train.drive(0,0);
-      turnRight();
-      drive_train.drive(0,0);
-      driveForward(12);
-    }
-  }
+}
 
   private void driveForward(double _inches) {
     System.out.println("begin drive forward, inches="+_inches);

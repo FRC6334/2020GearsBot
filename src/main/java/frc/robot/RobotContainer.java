@@ -67,7 +67,7 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     final JoystickButton m_button02 = new JoystickButton(m_joystick0, 2);
-    m_button02.whenReleased(new DriveInInches(m_drivetrain, 6, "F"));
+    m_button02.whenReleased(new DriveInInchesGroup(m_drivetrain));
 
     final JoystickButton m_button03 = new JoystickButton(m_joystick0, 3);
     m_button03.whileHeld(new DriveToTarget(m_limelight, m_drivetrain));

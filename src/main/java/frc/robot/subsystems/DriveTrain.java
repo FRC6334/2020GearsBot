@@ -76,8 +76,11 @@ public class DriveTrain extends SubsystemBase {
    * Reset the robots sensors to the zero states.
    */
   public synchronized void resetEncoders() {
+    //System.out.println("Start Reset: L:"+left_encoder.getPosition()+",R:"+right_encoder.getPosition());
     left_encoder.setPosition(0.0000);
-    right_encoder.setPosition(0.0000);
+    right_encoder.setPosition(0.0000); 
+    log();
+    //System.out.println("End Reset: L:"+left_encoder.getPosition()+",R:"+right_encoder.getPosition());
   }
 
   /**

@@ -10,6 +10,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.RobotMap;
 import frc.robot.subsystems.DriveTrain;
+import edu.wpi.first.wpilibj.Timer;
 
 public class DriveInInches extends InstantCommand {
   private DriveTrain drive_train;
@@ -41,6 +42,16 @@ public class DriveInInches extends InstantCommand {
   @Override
   public void initialize() {
     System.out.println("begin ("+direction+"), inches="+inches);
+    drive_train.resetEncoders();
+    Timer t = new Timer();
+    t.start();
+    /*while (t.get() < 2) {
+        if (t.get() == 1 || t.get() == 1.9) drive_train.resetEncoders();
+        if (drive_train.getRightEncoderDistance() == 0 && drive_train.getLeftEncoderDistance() == 0)
+          break;
+    }*/
+    while (t.get() < 0.5) ;
+    t.stop();
 
     //go forward
     if (direction.equals("F")) {
@@ -63,8 +74,7 @@ public class DriveInInches extends InstantCommand {
   }
 
   private void driveForward(double _inches) {
-    drive_train.resetEncoders();
-    System.out.println("encoder R:"+drive_train.getRightEncoderDistance()+",L:"+drive_train.getLeftEncoderDistance());
+    System.out.println("FWD encoder R:"+drive_train.getRightEncoderDistance()+",L:"+drive_train.getLeftEncoderDistance());
     double travled =0;
     double target  = _inches*RobotMap.rotations_per_inch;
     while(travled<=target){
@@ -76,6 +86,7 @@ public class DriveInInches extends InstantCommand {
   }
 
   private void driveBackward(double _inches) {
+    System.out.println("REV encoder R:"+drive_train.getRightEncoderDistance()+",L:"+drive_train.getLeftEncoderDistance());
     double travled =0;
     double target  = _inches*RobotMap.rotations_per_inch;
     while(travled<=target){
@@ -83,15 +94,16 @@ public class DriveInInches extends InstantCommand {
         travled = Math.abs(drive_train.getDistance());
     }
     System.out.println("B:"+travled+" of "+target);
+    drive_train.resetEncoders();
   }
 
   private void turnRight() {
-    while(drive_train.getRightEncoderDistance()<10.6104)
+    while(drive_train.getRightEncoderDistance()<RobotMap.roations_per_turn)
       drive_train.drive(0,RobotMap.din_power);
   }
 
   private void turnLeft() {
-    while(Math.abs(drive_train.getRightEncoderDistance())<10.6104)
+    while(Math.abs(drive_train.getRightEncoderDistance())<RobotMap.roations_per_turn)
       drive_train.drive(0,-RobotMap.din_power);
   }
 }

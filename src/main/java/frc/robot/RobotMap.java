@@ -25,8 +25,8 @@ public class RobotMap {
     public static final double driveTrainPower = 0.8;
 
     //Motor rotations per inch for DriveInInches
-    public static final double roations_per_angle = 0.11755556;
-    public static final double rotations_per_inch = 0.5629;
+    public static final double roations_per_angle = 0.109064152;//0.117555;
+    public static final double rotations_per_inch = 0.5361;//0.5629;
     public static final double din_power = 0.5;
 
     //Default LimeLight Value
@@ -36,7 +36,7 @@ public class RobotMap {
     public static final double heightOfTarget = 115.625;   //(h2) The height of the target 
     public static final double heightOfLimeLight = 36.125;   //(h1) The height of your camera above the floor
     public static final double angleOfLimeLight = 45; // in degrees
-    public static final double shoot_distance = 60; //how far to shoot from
+    public static final double shoot_distance = 55; //how far to shoot from
     public static final double x_speed = 0.8; //drive to target right/left speed
     public static final double y_speed = 0.8; //drive to trget forward/back up speed
     public static final double x_flex = 2; //amount of acceptable error in degrees when lining up on the X axis

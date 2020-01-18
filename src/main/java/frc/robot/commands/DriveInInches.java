@@ -23,6 +23,9 @@ public class DriveInInches extends InstantCommand {
    * B = backwards
    * R = right turn
    * L = left turn
+   * 
+   * If forward or backwards, inches = number of inches
+   * If right or left, inches = degrees of turn
    */
   public DriveInInches(DriveTrain dt, double _inches_or_angle, String _direction) {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -37,12 +40,7 @@ public class DriveInInches extends InstantCommand {
     drive_train.resetEncoders();
     Timer t = new Timer();
     t.start();
-    /*while (t.get() < 2) {
-        if (t.get() == 1 || t.get() == 1.9) drive_train.resetEncoders();
-        if (drive_train.getRightEncoderDistance() == 0 && drive_train.getLeftEncoderDistance() == 0)
-          break;
-    }*/
-    while (t.get() < 0.2) ;
+    while (t.get() < 0.08);
     t.stop();
 
     //go forward

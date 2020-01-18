@@ -25,7 +25,7 @@ public class RobotMap {
     public static final double driveTrainPower = 0.8;
 
     //Motor rotations per inch for DriveInInches
-    public static final double roations_per_turn = 10.58;
+    public static final double roations_per_angle = 0.11755556;
     public static final double rotations_per_inch = 0.5629;
     public static final double din_power = 0.5;
 

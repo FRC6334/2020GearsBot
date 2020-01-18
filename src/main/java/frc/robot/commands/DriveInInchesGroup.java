@@ -24,15 +24,16 @@ public class DriveInInchesGroup extends SequentialCommandGroup {
     //super();
     addCommands(new DriveInInches(dt, 24, "F"));
     addCommands(new DriveInInches(dt, 24, "B"));
-    addCommands(new DriveInInches(dt, 0, "R"));
-    addCommands(new DriveInInches(dt, 0, "R"));
-    addCommands(new DriveInInches(dt, 0, "L"));
-    addCommands(new DriveInInches(dt, 0, "L"));
+    addCommands(new DriveInInches(dt, 45, "R"));
+    addCommands(new DriveInInches(dt, 45, "R"));
+    addCommands(new DriveInInches(dt, 45, "L"));
+    addCommands(new DriveInInches(dt, 45, "L"));
     addCommands(new DriveInInches(dt, 12, "F"));
     addCommands(new DriveInInches(dt, 12, "B"));
-    addCommands(new DriveInInches(dt, 0, "R"));
-    addCommands(new DriveInInches(dt, 0, "R"));
-    addCommands(new DriveInInches(dt, 0, "R"));
-    addCommands(new DriveInInches(dt, 0, "R"));
+    addCommands(new DriveInInches(dt, 180, "R"));
+    addCommands(new DriveInInches(dt, 180, "R"));
+    addCommands(new DriveInInches(dt, 180, "R"));
+    addCommands(new DriveInInches(dt, 180, "R"));
+    addCommands(new DriveInInches(dt, 360, "L"));
   }
 }

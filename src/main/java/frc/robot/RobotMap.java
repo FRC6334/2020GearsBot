@@ -25,8 +25,8 @@ public class RobotMap {
     public static final double driveTrainPower = 0.8;
 
     //Motor rotations per inch for DriveInInches
-    public static final double roations_per_angle = 0.109064152;//0.117555;
-    public static final double rotations_per_inch = 0.5361;//0.5629;
+    public static final double roations_per_angle = 0.1079282407;//0.117555;
+    public static final double rotations_per_inch = 0.536100860941121;//0.5361;//0.5629;
     public static final double din_power = 0.5;
 
     //Default LimeLight Value
@@ -58,4 +58,11 @@ public class RobotMap {
       public static final int ll_vision = 0;
       public static final int ll_driver = 1;
 }
+
+
+
+
+
+
+
 

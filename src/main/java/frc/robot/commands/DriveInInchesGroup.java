@@ -22,31 +22,6 @@ public class DriveInInchesGroup extends SequentialCommandGroup {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
     //super();
-    /*addCommands(new DriveInInches(dt, 24, "F"));
-    addCommands(new DriveInInches(dt, 24, "B"));
-    addCommands(new DriveInInches(dt, 45, "R"));
-    addCommands(new DriveInInches(dt, 45, "R"));
-    addCommands(new DriveInInches(dt, 45, "L"));
-    addCommands(new DriveInInches(dt, 45, "L"));
-    addCommands(new DriveInInches(dt, 12, "F"));
-    addCommands(new DriveInInches(dt, 12, "B"));
-    addCommands(new DriveInInches(dt, 180, "R"));
-    addCommands(new DriveInInches(dt, 180, "R"));
-    addCommands(new DriveInInches(dt, 180, "R"));
-    addCommands(new DriveInInches(dt, 180, "R"));
-    addCommands(new DriveInInches(dt, 360, "L"));
-    addCommands(new DriveInInches(dt, 6, "F"));
-    addCommands(new DriveInInches(dt, 6, "B"));
-    addCommands(new DriveInInches(dt, 36, "R"));
-    addCommands(new DriveInInches(dt, 36, "R"));
-    addCommands(new DriveInInches(dt, 36, "R"));
-    addCommands(new DriveInInches(dt, 36, "R"));
-    addCommands(new DriveInInches(dt, 36, "R"));
-    addCommands(new DriveInInches(dt, 36, "R"));
-    addCommands(new DriveInInches(dt, 36, "R"));
-    addCommands(new DriveInInches(dt, 36, "R"));
-    addCommands(new DriveInInches(dt, 36, "R"));*/
-    addCommands(new DriveInInches(dt, 360, "R"));
-    //addCommands(new DriveInInches(dt, 360, "L"));
+    addCommands(new DriveInInches(dt, 39.37, "F"));
   }
 }

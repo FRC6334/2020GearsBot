@@ -16,12 +16,16 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import frc.robot.RobotMap;
+import edu.wpi.first.wpilibj.SPI;
+import com.kauailabs.navx.frc.AHRS;
 
 public class DriveTrain extends SubsystemBase {
   /**
    * The DriveTrain subsystem incorporates the sensors and actuators attached to the robots chassis.
    * These include four drive motors, a left and right encoder and a gyro.
    */
+  private final AHRS navx;
+
   private final CANSparkMax leftFrontMotor = new CANSparkMax(RobotMap.leftFrontMotor, MotorType.kBrushless);
   private final CANSparkMax leftBackMotor = new CANSparkMax(RobotMap.leftBackMotor, MotorType.kBrushless);
   private final CANSparkMax rightFrontMotor = new CANSparkMax(RobotMap.rightFrontMotor, MotorType.kBrushless);
@@ -42,11 +46,21 @@ public class DriveTrain extends SubsystemBase {
    */
   public DriveTrain() {
     super();
+    //reset encoders to 0
     this.resetEncoders();
+
+    //initialize NavX
+    navx = new AHRS(SPI.Port.kMXP);
+    navx.reset();
 
     // Let's name the sensors on the LiveWindow
     //addChild("Drive", m_drive);
   }
+
+  //NAVX methods
+  public float getNAVXDisplacementX() { return navx.getDisplacementX(); }
+  public float getNAVXDisplacementY() { return navx.getDisplacementY(); }
+  public void  resetNAVX() { navx.resetDisplacement(); }
 
   /**
    * The log method puts interesting information to the SmartDashboard.

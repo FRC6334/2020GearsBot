@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.RobotMap;
 import frc.robot.subsystems.DriveTrain;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.util.Units;
 
 public class DriveInInches extends InstantCommand {
   private DriveTrain drive_train;
@@ -42,6 +43,7 @@ public class DriveInInches extends InstantCommand {
     t.start();
     while (t.get() < 0.08);
     t.stop();
+    drive_train.resetNAVX();
 
     //go forward
     if (direction.equals("F")) {
@@ -70,8 +72,9 @@ public class DriveInInches extends InstantCommand {
     while(travled<=target){
       drive_train.drive(-RobotMap.din_power, 0);
       travled = drive_train.getDistance();
+      System.out.println("NAVX: "+drive_train.getNAVXDisplacementX()+", Encoder: "+(travled*1.86));
     }
-    System.out.println("F:"+travled+" of "+target);
+    System.out.println("F:"+travled+" of "+target+"NAVX:" + drive_train.getNAVXDisplacementX());
     drive_train.resetEncoders();
   }
 

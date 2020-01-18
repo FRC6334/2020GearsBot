@@ -15,14 +15,13 @@ import frc.robot.subsystems.DriveTrain;
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
 public class DriveInInchesGroup extends SequentialCommandGroup {
-  
   /**
    * Creates a new DriveInInchesGroup.
    */
   public DriveInInchesGroup(DriveTrain dt) {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
-    super();
-    addCommands(new DriveInInches(dt, 12, "F"), new DriveInInches(dt, 24, "F"));
+    //super();
+    addCommands(new DriveInInches(dt, 24, "F"), new DriveInInches(dt, 24, "B"));
   }
 }

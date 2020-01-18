@@ -42,10 +42,10 @@ public class DriveTrain extends SubsystemBase {
    */
   public DriveTrain() {
     super();
-    this.reset();
+    this.resetEncoders();
 
     // Let's name the sensors on the LiveWindow
-    addChild("Drive", m_drive);
+    //addChild("Drive", m_drive);
   }
 
   /**
@@ -67,14 +67,15 @@ public class DriveTrain extends SubsystemBase {
   }
 
   /* not used but example of calling tank drive */
+  /*
   public void TankDrive(double left, double right) {
     m_drive.tankDrive(left, right);
-  }
+  } */
 
   /**
    * Reset the robots sensors to the zero states.
    */
-  public void reset() {
+  public void resetEncoders() {
     left_encoder.setPosition(0);
     right_encoder.setPosition(0);
   }

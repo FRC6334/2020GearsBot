@@ -24,6 +24,6 @@ public class ResetEncoderDistance extends InstantCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    this.drive_train.reset();
+    this.drive_train.resetEncoders();
   }
 }

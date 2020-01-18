@@ -38,9 +38,10 @@ public class DriveInInches extends InstantCommand {
     this(dt, 0, _direction);
   }
 
-
   @Override
   public void initialize() {
+    System.out.println("begin ("+direction+"), inches="+inches);
+
     //go forward
     if (direction.equals("F")) {
       driveForward(inches); 
@@ -57,45 +58,40 @@ public class DriveInInches extends InstantCommand {
     else if (direction.equals("L")){
       turnLeft();
     }
-}
+
+    System.out.println("end ("+direction+"), inches="+inches);
+  }
 
   private void driveForward(double _inches) {
-    System.out.println("begin drive forward, inches="+_inches);
-    drive_train.reset();
+    drive_train.resetEncoders();
+    System.out.println("encoder R:"+drive_train.getRightEncoderDistance()+",L:"+drive_train.getLeftEncoderDistance());
     double travled =0;
     double target  = _inches*RobotMap.rotations_per_inch;
     while(travled<=target){
       drive_train.drive(-RobotMap.din_power, 0);
       travled = drive_train.getDistance();
     }
-    System.out.println("end drive forward, inches="+_inches);
+    System.out.println("F:"+travled+" of "+target);
+    drive_train.resetEncoders();
   }
 
   private void driveBackward(double _inches) {
-    System.out.println("begin drive backward, inches="+_inches);
-    drive_train.reset();
     double travled =0;
     double target  = _inches*RobotMap.rotations_per_inch;
     while(travled<=target){
         drive_train.drive(RobotMap.din_power, 0);
         travled = Math.abs(drive_train.getDistance());
     }
-    System.out.println("end drive backward, inches="+_inches);
+    System.out.println("B:"+travled+" of "+target);
   }
 
   private void turnRight() {
-    System.out.println("begin turn right");
-    drive_train.reset();
     while(drive_train.getRightEncoderDistance()<10.6104)
       drive_train.drive(0,RobotMap.din_power);
-    System.out.println("end turn right");
   }
 
   private void turnLeft() {
-    System.out.println("begin turn left");
-    drive_train.reset();
     while(Math.abs(drive_train.getRightEncoderDistance())<10.6104)
       drive_train.drive(0,-RobotMap.din_power);
-    System.out.println("end turn left");
   }
 }

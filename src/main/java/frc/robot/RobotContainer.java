@@ -13,7 +13,6 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.ArcadeDrive;
-import frc.robot.commands.DriveInInches;
 import frc.robot.commands.GetColorInformation;
 import frc.robot.commands.ResetEncoderDistance;
 import frc.robot.subsystems.DriveTrain;
@@ -25,6 +24,7 @@ import frc.robot.commands.ToggleLimeLightLED;
 import frc.robot.commands.ToggleLimeLightVision;
 import frc.robot.commands.DriveToTarget;
 import frc.robot.commands.DriveInInchesGroup;
+import frc.robot.commands.DriveInInches;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -34,7 +34,7 @@ import frc.robot.commands.DriveInInchesGroup;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private static final DriveTrain m_drivetrain = new DriveTrain();
+  private final DriveTrain m_drivetrain = new DriveTrain();
   private final USBCamera m_camera = new USBCamera();
   private final LimeLightVision m_limelight = new LimeLightVision();
   private final ColorSensor m_color_sensor = new ColorSensor();
@@ -49,11 +49,11 @@ public class RobotContainer {
     m_drivetrain.setDefaultCommand(new ArcadeDrive(m_joystick0, m_drivetrain));
 
     // Show what command your subsystem is running on the SmartDashboard
-    SmartDashboard.putData(m_drivetrain);
-    SmartDashboard.putData(m_camera);
+    //SmartDashboard.putData(m_drivetrain);
+    //SmartDashboard.putData(m_camera);
 
     // Call log method on all subsystems
-    m_drivetrain.log();
+    //m_drivetrain.log();
 
     // Configure the button bindings
     configureButtonBindings();
@@ -67,7 +67,7 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     final JoystickButton m_button02 = new JoystickButton(m_joystick0, 2);
-    m_button02.whenPressed(new DriveInInchesGroup(m_drivetrain));
+    m_button02.whenReleased(new DriveInInches(m_drivetrain, 6, "F"));
 
     final JoystickButton m_button03 = new JoystickButton(m_joystick0, 3);
     m_button03.whileHeld(new DriveToTarget(m_limelight, m_drivetrain));

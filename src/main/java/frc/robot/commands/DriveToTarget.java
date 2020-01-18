@@ -64,9 +64,9 @@ public class DriveToTarget extends CommandBase {
       //move to the target at the proper forward speed and X center adjustment speed
       if (dist > RobotMap.shoot_distance && tv==1) {
         if (tx < 0) {
-           drive_train.drive(-speed_adj, -center_adj);
-           alignReport(10, tv, tx, -speed_adj, -center_adj, dist);
-
+          drive_train.drive(-speed_adj, -center_adj);
+          alignReport(10, tv, tx, -speed_adj, -center_adj, dist);
+          //nice
         }
         else {
            drive_train.drive(-speed_adj, center_adj);

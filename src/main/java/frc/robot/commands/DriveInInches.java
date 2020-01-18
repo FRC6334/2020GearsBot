@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj.util.Units;
 public class DriveInInches extends InstantCommand {
   private DriveTrain drive_train;
   private double inches_or_angle = 0;
-  private String direction = "F";
+  private String direction;
 
   /**
    * Creates a new resetEncoderDistance.
@@ -72,7 +72,7 @@ public class DriveInInches extends InstantCommand {
     while(travled<=target){
       drive_train.drive(-RobotMap.din_power, 0);
       travled = drive_train.getDistance();
-      System.out.println("NAVX: "+drive_train.getNAVXDisplacementX()+", Encoder: "+(travled*1.86));
+      System.out.println("NAVX (X/Y): "+drive_train.getNAVXDisplacementX()+"/"+drive_train.getNAVXDisplacementY()+", Encoder: "+(travled*1.86));
     }
     System.out.println("F:"+travled+" of "+target+"NAVX:" + drive_train.getNAVXDisplacementX());
     drive_train.resetEncoders();

@@ -16,15 +16,15 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import frc.robot.RobotMap;
-import edu.wpi.first.wpilibj.SPI;
-import com.kauailabs.navx.frc.AHRS;
+//import edu.wpi.first.wpilibj.SPI;
+//import com.kauailabs.navx.frc.AHRS;
 
 public class DriveTrain extends SubsystemBase {
   /**
    * The DriveTrain subsystem incorporates the sensors and actuators attached to the robots chassis.
    * These include four drive motors, a left and right encoder and a gyro.
    */
-  private final AHRS navx;
+  //private final AHRS navx;
 
   private final CANSparkMax leftFrontMotor = new CANSparkMax(RobotMap.leftFrontMotor, MotorType.kBrushless);
   private final CANSparkMax leftBackMotor = new CANSparkMax(RobotMap.leftBackMotor, MotorType.kBrushless);
@@ -46,21 +46,27 @@ public class DriveTrain extends SubsystemBase {
    */
   public DriveTrain() {
     super();
-    //reset encoders to 0
-    this.resetEncoders();
 
     //initialize NavX
-    navx = new AHRS(SPI.Port.kMXP);
-    navx.reset();
+    //navx = new AHRS(SPI.Port.kMXP);
+    //navx.reset();
+
+    //reset encoders to 0
+    this.resetEncoders();
 
     // Let's name the sensors on the LiveWindow
     //addChild("Drive", m_drive);
   }
 
   //NAVX methods
+  /*
   public float getNAVXDisplacementX() { return navx.getDisplacementX(); }
   public float getNAVXDisplacementY() { return navx.getDisplacementY(); }
+  public float getNAVXDisplacementZ() { return navx.getDisplacementZ(); }
   public void  resetNAVX() { navx.resetDisplacement(); }
+  public float getNAVXRoll() { return navx.getRoll(); }
+  public float getNAVXPitch() { return navx.getPitch(); }
+  */
 
   /**
    * The log method puts interesting information to the SmartDashboard.
@@ -78,6 +84,9 @@ public class DriveTrain extends SubsystemBase {
    */
   public void drive(double y, double x) {
     m_drive.arcadeDrive((y*RobotMap.driveTrainPower*-1), (x*RobotMap.driveTrainPower));
+    /*System.out.println("roll/pitch="+getNAVXRoll()+","+getNAVXPitch()+
+    "- NAVX (X/Y/Z):" + 
+    getNAVXDisplacementX()+","+getNAVXDisplacementY()+","+getNAVXDisplacementZ());*/
   }
 
   /* not used but example of calling tank drive */
@@ -93,6 +102,7 @@ public class DriveTrain extends SubsystemBase {
     //System.out.println("Start Reset: L:"+left_encoder.getPosition()+",R:"+right_encoder.getPosition());
     left_encoder.setPosition(0.0000);
     right_encoder.setPosition(0.0000); 
+    //resetNAVX();
     log();
     //System.out.println("End Reset: L:"+left_encoder.getPosition()+",R:"+right_encoder.getPosition());
   }

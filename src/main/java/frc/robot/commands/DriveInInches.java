@@ -37,13 +37,13 @@ public class DriveInInches extends InstantCommand {
 
   @Override
   public void initialize() {
-    System.out.println("begin ("+direction+"), inches="+inches_or_angle);
+    //System.out.println("begin ("+direction+"), inches="+inches_or_angle);
     drive_train.resetEncoders();
+    
     Timer t = new Timer();
     t.start();
     while (t.get() < 0.08);
     t.stop();
-    drive_train.resetNAVX();
 
     //go forward
     if (direction.equals("F")) {
@@ -62,19 +62,20 @@ public class DriveInInches extends InstantCommand {
       turnLeft();
     }
 
-    System.out.println("end ("+direction+"), inches="+inches_or_angle);
+    //System.out.println("end ("+direction+"), inches="+inches_or_angle);
   }
 
   private void driveForward() {
-    System.out.println("FWD encoder R:"+drive_train.getRightEncoderDistance()+",L:"+drive_train.getLeftEncoderDistance());
+    //System.out.println("FWD encoder R:"+drive_train.getRightEncoderDistance()+",L:"+drive_train.getLeftEncoderDistance());
     double travled =0;
     double target  = inches_or_angle*RobotMap.rotations_per_inch;
     while(travled<=target){
       drive_train.drive(-RobotMap.din_power, 0);
       travled = drive_train.getDistance();
-      System.out.println("NAVX (X/Y): "+drive_train.getNAVXDisplacementX()+"/"+drive_train.getNAVXDisplacementY()+", Encoder: "+(travled*1.86));
     }
-    System.out.println("F:"+(travled*1.86)+" of "+target+"NAVX (X/Y):" + drive_train.getNAVXDisplacementX()+","+drive_train.getNAVXDisplacementY());
+    System.out.println("F:"+travled+" of "+target);
+    //+"NAVX (X/Y/Z):" + 
+    //  drive_train.getNAVXDisplacementX()+","+drive_train.getNAVXDisplacementY()+","+drive_train.getNAVXDisplacementZ());
     drive_train.resetEncoders();
   }
 

@@ -22,6 +22,6 @@ public class DriveInInchesGroup extends SequentialCommandGroup {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
     //super();
-    addCommands(new DriveInInches(dt, 39.37, "F"));
+    addCommands(new DriveInInches(dt, 39.3701, "F"));
   }
 }

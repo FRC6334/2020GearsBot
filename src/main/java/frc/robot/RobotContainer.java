@@ -44,6 +44,8 @@ public class RobotContainer {
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
+    m_limelight.setLedMode(RobotMap.ll_off);
+
     // Put Some buttons on the SmartDashboard
     // Assign default commands
     m_drivetrain.setDefaultCommand(new ArcadeDrive(m_joystick0, m_drivetrain));

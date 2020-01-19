@@ -74,7 +74,7 @@ public class DriveInInches extends InstantCommand {
       travled = drive_train.getDistance();
       System.out.println("NAVX (X/Y): "+drive_train.getNAVXDisplacementX()+"/"+drive_train.getNAVXDisplacementY()+", Encoder: "+(travled*1.86));
     }
-    System.out.println("F:"+travled+" of "+target+"NAVX:" + drive_train.getNAVXDisplacementX());
+    System.out.println("F:"+(travled*1.86)+" of "+target+"NAVX (X/Y):" + drive_train.getNAVXDisplacementX()+","+drive_train.getNAVXDisplacementY());
     drive_train.resetEncoders();
   }
 

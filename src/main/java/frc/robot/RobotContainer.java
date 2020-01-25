@@ -25,6 +25,7 @@ import frc.robot.commands.ToggleLimeLightVision;
 import frc.robot.commands.DriveToTarget;
 import frc.robot.commands.DriveInInchesGroup;
 import frc.robot.commands.DriveInInches;
+import frc.robot.commands.ReverseDrive;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -73,6 +74,9 @@ public class RobotContainer {
 
     final JoystickButton m_button03 = new JoystickButton(m_joystick0, 3);
     m_button03.whileHeld(new DriveToTarget(m_limelight, m_drivetrain));
+
+    final JoystickButton m_button04 = new JoystickButton(m_joystick0, 4);
+    m_button04.whenPressed(new ReverseDrive());
 
     final JoystickButton m_button06 = new JoystickButton(m_joystick0, 6);
     m_button06.whenPressed(new ToggleLimeLightVision(m_limelight));

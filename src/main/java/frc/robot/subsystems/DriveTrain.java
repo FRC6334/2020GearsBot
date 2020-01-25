@@ -83,7 +83,7 @@ public class DriveTrain extends SubsystemBase {
    *
    */
   public void drive(double y, double x) {
-    m_drive.arcadeDrive((y*RobotMap.driveTrainPower*-1), (x*RobotMap.driveTrainPower));
+    m_drive.arcadeDrive((y*RobotMap.driveTrainPower*RobotMap.direction), (x*RobotMap.driveTrainPower));
     /*System.out.println("roll/pitch="+getNAVXRoll()+","+getNAVXPitch()+
     "- NAVX (X/Y/Z):" + 
     getNAVXDisplacementX()+","+getNAVXDisplacementY()+","+getNAVXDisplacementZ());*/

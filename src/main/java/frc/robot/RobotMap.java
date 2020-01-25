@@ -18,6 +18,10 @@ public class RobotMap {
     public static final int rightFrontMotor = 1;
     public static final int rightBackMotor = 2;
 
+    //Drive Train
+    // -1 is forward, 1 is reverse
+    public static int direction = -1;
+
     //Drive Train Power
     //0 = no power
     //0.5 = half power

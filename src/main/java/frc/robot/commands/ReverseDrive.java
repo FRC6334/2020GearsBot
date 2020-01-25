@@ -18,18 +18,29 @@ import frc.robot.RobotMap;
 public class ReverseDrive extends InstantCommand {
   public enum Direction { FORWARD, REVERSE }
   private Direction dir;
+  
 
   public ReverseDrive() {
     // Use addRequirements() here to declare subsystem dependencies.
+    dir = null;
+  }
+
+  public ReverseDrive(Direction d) {
+    // Use addRequirements() here to declare subsystem dependencies.
+    dir = d;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if (RobotMap.direction == 1) dir = Direction.REVERSE;
-    else dir = Direction.FORWARD;
+    if (dir == null) {
+       if (RobotMap.direction == 1) dir = Direction.REVERSE;
+       else dir = Direction.FORWARD;
 
-    if (dir == Direction.FORWARD) RobotMap.direction = 1;
+       if (dir == Direction.FORWARD) RobotMap.direction = 1;
+       else RobotMap.direction = -1;
+    }
+    else if (dir == Direction.REVERSE) RobotMap.direction = 1;
     else RobotMap.direction = -1;
   }
 }

@@ -22,6 +22,7 @@ import frc.robot.subsystems.ColorSensor;
 import frc.robot.commands.GetLimeLightValues;
 import frc.robot.commands.ToggleLimeLightLED;
 import frc.robot.commands.ToggleLimeLightVision;
+import frc.robot.commands.ReverseDrive.Direction;
 import frc.robot.commands.DriveToTarget;
 import frc.robot.commands.DriveInInchesGroup;
 import frc.robot.commands.DriveInInches;
@@ -69,11 +70,17 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+    //final JoystickButton m_button02 = new JoystickButton(m_joystick0, 2);
+    //m_button02.whenReleased(new DriveInInchesGroup(m_drivetrain));
+
+    //final JoystickButton m_button03 = new JoystickButton(m_joystick0, 3);
+    //m_button03.whileHeld(new DriveToTarget(m_limelight, m_drivetrain));
+
     final JoystickButton m_button02 = new JoystickButton(m_joystick0, 2);
-    m_button02.whenReleased(new DriveInInchesGroup(m_drivetrain));
+    m_button02.whenPressed(new ReverseDrive(Direction.REVERSE));
 
     final JoystickButton m_button03 = new JoystickButton(m_joystick0, 3);
-    m_button03.whileHeld(new DriveToTarget(m_limelight, m_drivetrain));
+    m_button03.whenPressed(new ReverseDrive(Direction.FORWARD));
 
     final JoystickButton m_button04 = new JoystickButton(m_joystick0, 4);
     m_button04.whenPressed(new ReverseDrive());
